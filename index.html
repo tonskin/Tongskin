@@ -8,172 +8,61 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   
   <style>
-    :root {
-      --primary-purple: #7a6f8a;
-      --light-purple: #a790b8;
-      --bg-color: #f9f9fb;
-      --white: #ffffff;
-      --text-gray: #666;
-    }
-
-    body {
-      font-family: "Noto Sans TC", sans-serif;
-      background: var(--bg-color);
-      color: #444;
-      margin: 0;
-      padding: 0;
-      line-height: 1.7;
-    }
-
-    /* --- Header --- */
-    header {
-      text-align: center;
-      padding: 60px 20px 50px 20px;
-      background: var(--white);
-      border-bottom: 1px solid #f0f0f0;
-    }
+    /* CSS 樣式保持不變，為了節省您的篇幅，這裡使用原本的設定 */
+    :root { --primary-purple: #7a6f8a; --light-purple: #a790b8; --bg-color: #f9f9fb; --white: #ffffff; --text-gray: #666; }
+    body { font-family: "Noto Sans TC", sans-serif; background: var(--bg-color); color: #444; margin: 0; padding: 0; line-height: 1.7; }
+    
+    header { text-align: center; padding: 60px 20px 50px 20px; background: var(--white); border-bottom: 1px solid #f0f0f0; }
+    
+    /* Logo 樣式 */
     .hero-img {
-      /* 修改：調整 Logo 樣式，避免文字被切掉 */
-      width: 150px; 
-      height: auto; 
-      margin: 0 auto 20px auto;
-      border-radius: 20px; /* 改成圓角方塊 */
-      display: block;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.05); /* 增加一點質感陰影 */
+      width: 140px; height: auto; margin: 0 auto 20px auto;
+      border-radius: 20px; display: block;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     }
-    h1 { 
-      font-family: 'Noto Serif TC', serif;
-      font-size: 2em; 
-      letter-spacing: .1em; 
-      margin-bottom: 10px; 
-      color: #333;
-    }
+    
+    h1 { font-family: 'Noto Serif TC', serif; font-size: 2em; letter-spacing: .1em; margin-bottom: 10px; color: #333; }
     .tagline { font-size: 1em; color: var(--primary-purple); margin-bottom: 25px; }
     
-    /* --- Booking Button --- */
-    .cta-container {
-        display: flex; flex-direction: column; align-items: center; gap: 12px;
-    }
-    .cta {
-      display: inline-block;
-      background: var(--primary-purple); color: #fff;
-      font-size: 1.05em; padding: 12px 45px;
-      border-radius: 50px; border: none; margin-top: 5px;
-      box-shadow: 0 4px 15px rgba(122, 111, 138, 0.3);
-      cursor: pointer; transition: all 0.3s;
-    }
+    .cta-container { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+    .cta { display: inline-block; background: var(--primary-purple); color: #fff; font-size: 1.05em; padding: 12px 45px; border-radius: 50px; border: none; margin-top: 5px; box-shadow: 0 4px 15px rgba(122, 111, 138, 0.3); cursor: pointer; transition: all 0.3s; }
     .cta:hover { background: #685d7a; transform: translateY(-2px); }
-    
-    .promo-code {
-        font-size: 0.85em; color: var(--light-purple);
-        background: #fdfbff; padding: 6px 16px; border-radius: 20px;
-        border: 1px dashed var(--light-purple);
-    }
+    .promo-code { font-size: 0.85em; color: var(--light-purple); background: #fdfbff; padding: 6px 16px; border-radius: 20px; border: 1px dashed var(--light-purple); }
 
-    /* --- 通用區塊設定 --- */
-    section {
-      max-width: 900px;
-      margin: 50px auto;
-      padding: 0 20px;
-    }
-    
-    .section-title {
-        text-align: center; margin-bottom: 40px;
-    }
-    .section-title h2 {
-        font-family: 'Noto Serif TC', serif;
-        font-size: 1.8em; color: #333; margin: 0;
-    }
-    .section-title p {
-        color: var(--light-purple); font-size: 0.9em; margin-top: 8px; letter-spacing: 1px;
-    }
+    section { max-width: 900px; margin: 50px auto; padding: 0 20px; }
+    .section-title { text-align: center; margin-bottom: 40px; }
+    .section-title h2 { font-family: 'Noto Serif TC', serif; font-size: 1.8em; color: #333; margin: 0; }
+    .section-title p { color: var(--light-purple); font-size: 0.9em; margin-top: 8px; letter-spacing: 1px; }
 
-    /* --- 1. 三大特色卡片 --- */
-    .features-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 20px;
-        margin-top: 30px;
-    }
-    .feature-card {
-        background: var(--white);
-        padding: 40px 25px;
-        border-radius: 16px;
-        text-align: center;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.03);
-        border: 1px solid #fff;
-        transition: transform 0.3s;
-    }
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 30px; }
+    .feature-card { background: var(--white); padding: 40px 25px; border-radius: 16px; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.03); border: 1px solid #fff; transition: transform 0.3s; }
     .feature-card:hover { transform: translateY(-5px); }
-    .feature-icon {
-        font-size: 2em; color: var(--light-purple); margin-bottom: 20px;
-        background: #fcfaff; width: 70px; height: 70px; line-height: 70px;
-        border-radius: 50%; display: inline-block;
-    }
+    .feature-icon { font-size: 2em; color: var(--light-purple); margin-bottom: 20px; background: #fcfaff; width: 70px; height: 70px; line-height: 70px; border-radius: 50%; display: inline-block; }
     .feature-card h3 { font-size: 1.2em; margin-bottom: 15px; color: #333; }
     .feature-card p { font-size: 0.95em; color: var(--text-gray); line-height: 1.8; margin: 0; }
 
-    /* --- 2. 作品集 --- */
     .subtitle { text-align: center; font-weight: bold; color: #555; margin: 40px 0 20px 0; display: block; }
-
-    /* 仿 IG 影片卡片 */
-    .reels-container {
-        display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
-    }
-    .ig-card {
-        background: #fff; border-radius: 12px; overflow: hidden;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        aspect-ratio: 9/16; 
-        position: relative;
-        display: flex; align-items: center; justify-content: center;
-        background-color: #eee;
-    }
+    .reels-container { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .ig-card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); aspect-ratio: 9/16; position: relative; display: flex; align-items: center; justify-content: center; background-color: #eee; }
     .ig-placeholder { color: #999; font-size: 0.9em; text-align: center; padding: 20px;}
     
-    /* 精選案例照片 */
-    .portfolio-grid {
-        display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
-    }
-    .portfolio-img {
-        width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 12px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
+    .portfolio-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    .portfolio-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
     
     .ig-btn-container { text-align: center; margin-top: 30px; }
-    .ig-btn {
-        text-decoration: none; background: #fff; color: #333; padding: 10px 25px;
-        border-radius: 30px; border: 1px solid #ddd; font-size: 0.9em;
-        display: inline-flex; align-items: center; gap: 8px;
-        transition: all 0.3s;
-    }
+    .ig-btn { text-decoration: none; background: #fff; color: #333; padding: 10px 25px; border-radius: 30px; border: 1px solid #ddd; font-size: 0.9em; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s; }
     .ig-btn:hover { background: #f5f5f5; }
 
-    /* --- 3. 價目表 --- */
-    .menu-container {
-        background: var(--white); padding: 40px; border-radius: 20px;
-        box-shadow: 0 10px 40px rgba(122, 111, 138, 0.1);
-    }
+    .menu-container { background: var(--white); padding: 40px; border-radius: 20px; box-shadow: 0 10px 40px rgba(122, 111, 138, 0.1); }
     .service-list { list-style: none; padding: 0; }
-    .service-list li { 
-        display: flex; justify-content: space-between; align-items: baseline;
-        margin-bottom: 20px; border-bottom: 1px dashed #eee; padding-bottom: 15px;
-    }
+    .service-list li { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 20px; border-bottom: 1px dashed #eee; padding-bottom: 15px; }
     .service-name { font-weight: 500; font-size: 1.1em; color: #333; }
     .price { color: var(--primary-purple); font-weight: bold; font-family: 'Noto Serif TC', serif; font-size: 1.15em; }
-    
-    .package-box {
-        background: #fbf9fc; padding: 25px; border-radius: 12px; margin-top: 30px;
-        border: 1px solid #f0edf5;
-    }
+    .package-box { background: #fbf9fc; padding: 25px; border-radius: 12px; margin-top: 30px; border: 1px solid #f0edf5; }
     .package-head { text-align: center; color: var(--light-purple); font-weight: bold; margin-bottom: 20px; display: block;}
 
-    /* --- Footer --- */
-    footer {
-        text-align: center; padding: 40px 20px; margin-top: 60px;
-        background: #fff; color: #aaa; font-size: 0.85em; border-top: 1px solid #eee;
-    }
+    footer { text-align: center; padding: 40px 20px; margin-top: 60px; background: #fff; color: #aaa; font-size: 0.85em; border-top: 1px solid #eee; }
 
-    /* --- Modal --- */
     .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.5); backdrop-filter: blur(5px);}
     .modal-content { background-color: #fff; margin: 5% auto; padding: 30px; width: 90%; max-width: 500px; border-radius: 20px; animation: slideUp 0.4s ease; box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
     @keyframes slideUp { from {transform: translateY(50px); opacity: 0;} to {transform: translateY(0); opacity: 1;} }
@@ -183,7 +72,6 @@
     .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #eee; border-radius: 8px; background: #fcfcfc; box-sizing: border-box; font-size: 1rem;}
     #promoMessage { display: none; color: #28a745; font-size: 0.9em; margin-top: 5px; }
 
-    /* --- RWD 手機版調整 --- */
     @media(max-width: 720px){
       .reels-container { grid-template-columns: 1fr; } 
       .portfolio-grid { grid-template-columns: 1fr 1fr; } 
@@ -196,7 +84,7 @@
 <body>
 
   <header>
-    <img src="image01.JPG" alt="原彤Skin Logo" class="hero-img">
+    <img src="logo.jpg" alt="原彤Skin Logo" class="hero-img">
     
     <h1>原彤Skin</h1>
     <div class="tagline">為自己而改變，找回素顏的自信光采</div>
@@ -238,23 +126,23 @@
         <div class="ig-card">
             <div class="ig-placeholder">
                 <i class="fab fa-instagram" style="font-size:30px; margin-bottom:10px;"></i><br>
-                Reels 影片區塊 1<br>(未來可嵌入IG)
+                Reels 影片 1<br>(請之後嵌入 IG 連結)
             </div>
         </div>
         <div class="ig-card">
             <div class="ig-placeholder">
                 <i class="fab fa-instagram" style="font-size:30px; margin-bottom:10px;"></i><br>
-                Reels 影片區塊 2<br>(未來可嵌入IG)
+                Reels 影片 2<br>(請之後嵌入 IG 連結)
             </div>
         </div>
     </div>
 
     <span class="subtitle">精選案例</span>
     <div class="portfolio-grid">
-        <img src="https://via.placeholder.com/300/eee/999?text=Before" class="portfolio-img">
-        <img src="https://via.placeholder.com/300/eee/999?text=After" class="portfolio-img">
-        <img src="https://via.placeholder.com/300/eee/999?text=Lips" class="portfolio-img">
-        <img src="https://via.placeholder.com/300/eee/999?text=Repair" class="portfolio-img">
+        <img src="p1.jpg" class="portfolio-img" alt="作品1">
+        <img src="p2.jpg" class="portfolio-img" alt="作品2">
+        <img src="p3.jpg" class="portfolio-img" alt="作品3">
+        <img src="p4.jpg" class="portfolio-img" alt="作品4">
     </div>
 
     <div class="ig-btn-container">
@@ -350,28 +238,16 @@
   </div>
 
   <script>
-    // JS 功能與之前相同：日期限制、時段生成、自動信件
     const dateInput = document.getElementById('bookDate');
     const today = new Date();
     const maxDate = new Date();
     maxDate.setDate(today.getDate() + 30); 
-
-    function formatDate(date) {
-        let d = new Date(date), month = '' + (d.getMonth() + 1), day = '' + d.getDate(), year = d.getFullYear();
-        if (month.length < 2) month = '0' + month;
-        if (day.length < 2) day = '0' + day;
-        return [year, month, day].join('-');
-    }
-    dateInput.min = formatDate(today);
-    dateInput.max = formatDate(maxDate);
+    function formatDate(date) { let d = new Date(date), month = '' + (d.getMonth() + 1), day = '' + d.getDate(), year = d.getFullYear(); if (month.length < 2) month = '0' + month; if (day.length < 2) day = '0' + day; return [year, month, day].join('-'); }
+    dateInput.min = formatDate(today); dateInput.max = formatDate(maxDate);
 
     const timeSelect = document.getElementById('bookTime');
     const timeSlots = ["10:00", "12:00", "14:00", "16:00", "18:00", "20:00"];
-    timeSlots.forEach(time => {
-        let option = document.createElement('option');
-        option.value = time; option.text = time;
-        timeSelect.appendChild(option);
-    });
+    timeSlots.forEach(time => { let option = document.createElement('option'); option.value = time; option.text = time; timeSelect.appendChild(option); });
 
     const modal = document.getElementById("bookingModal");
     const btn = document.getElementById("openModalBtn");
@@ -382,9 +258,7 @@
 
     const promoInput = document.getElementById('promoCode');
     const promoMsg = document.getElementById('promoMessage');
-    promoInput.addEventListener('input', function() {
-        if (this.value.trim().toLowerCase() === 'yuki') { promoMsg.style.display = 'block'; } else { promoMsg.style.display = 'none'; }
-    });
+    promoInput.addEventListener('input', function() { if (this.value.trim().toLowerCase() === 'yuki') { promoMsg.style.display = 'block'; } else { promoMsg.style.display = 'none'; } });
 
     document.getElementById('bookingForm').addEventListener('submit', function(e) {
         e.preventDefault();
@@ -396,12 +270,10 @@
         const time = document.getElementById('bookTime').value;
         const content = document.getElementById('content').value;
         const promo = document.getElementById('promoCode').value;
-        
         let promoStatus = promo.trim().toLowerCase() === 'yuki' ? "【Yuki 優惠 - 需準備小禮物🎁】" : "無";
         const emails = "a911097777@gmail.com,wenheny831@gmail.com";
         const subject = `【預約通知】${name} - ${date} ${time}`;
         const body = `原彤Skin預約單\n\n姓名：${name}\n電話：${phone}\n生日：${birthday}\n性別：${gender}\n\n預約：${date} ${time}\n備註：${content}\n優惠代碼：${promoStatus}`;
-
         window.location.href = `mailto:${emails}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
         modal.style.display = "none";
         alert("已建立信件，請按下傳送！");
