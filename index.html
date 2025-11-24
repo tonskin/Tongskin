@@ -2,129 +2,197 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <title>原彤skin | Restore your beauty</title>
+  <title>原彤Skin | Restore your beauty</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    /* 原彤skin 品牌風格樣式表 - 保持原樣 */
+    :root {
+      --primary-purple: #7a6f8a;
+      --light-purple: #a790b8;
+      --bg-color: #f8fafc;
+      --white: #ffffff;
+    }
+
     body {
       font-family: "Noto Sans TC", Arial, sans-serif;
-      background: #f8fafc;
-      color: #222;
+      background: var(--bg-color);
+      color: #444;
       margin: 0;
       padding: 0;
+      line-height: 1.6;
     }
+
+    /* --- Header --- */
     header {
       text-align: center;
-      padding: 55px 20px 24px 20px;
-      background: #fff;
+      padding: 55px 20px 40px 20px;
+      background: var(--white);
+      border-bottom: 1px solid #eee;
     }
     .hero-img {
-      width: 120px; height: 120px; margin: 0 auto 30px auto;
-      border-radius: 16px; box-shadow: 0 2px 18px #d2cce3;
+      width: 120px; height: auto; margin: 0 auto 20px auto;
+      border-radius: 50%; box-shadow: 0 4px 20px #d2cce3;
       object-fit: cover;
-      background-color: #eee; 
+      display: block;
     }
-    h1 { font-size: 2.4em; letter-spacing: .1em; margin-bottom: 0.2em; }
-    .tagline { font-size: 1.2em; color: #7a6f8a; margin-bottom: 22px; }
+    h1 { 
+      font-family: 'Noto Serif TC', serif;
+      font-size: 2.2em; 
+      letter-spacing: .1em; 
+      margin-bottom: 0.2em; 
+      color: #333;
+    }
+    .tagline { font-size: 1.1em; color: var(--primary-purple); margin-bottom: 25px; }
+    
+    /* --- Booking Button --- */
+    .cta-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
     .cta {
       display: inline-block;
-      background: #7a6f8a; color: #fff;
-      font-size: 1.03em; padding: 12px 32px;
-      border-radius: 30px; border: none; margin-top: 18px;
-      box-shadow: 0 2px 12px #dfd8ec66;
-      text-decoration: none; transition: background .14s;
+      background: var(--primary-purple); color: #fff;
+      font-size: 1.1em; padding: 12px 40px;
+      border-radius: 50px; border: none; margin-top: 10px;
+      box-shadow: 0 4px 15px rgba(122, 111, 138, 0.4);
+      text-decoration: none; transition: all 0.3s;
+      cursor: pointer;
     }
-    .cta:hover { background: #685d7a; }
+    .cta:hover { background: #685d7a; transform: translateY(-2px); }
+    
+    .promo-code {
+        font-size: 0.9em;
+        color: var(--light-purple);
+        background: #f4f0f9;
+        padding: 5px 15px;
+        border-radius: 15px;
+        border: 1px dashed var(--light-purple);
+    }
+
+    /* --- Sections --- */
     section {
-      max-width: 900px;
-      margin: 55px auto 0 auto;
-      background: #fff;
-      padding: 40px 24px;
-      box-shadow: 0 8px 32px #dfd8ec28;
+      max-width: 800px;
+      margin: 40px auto;
+      background: var(--white);
+      padding: 40px 30px;
+      box-shadow: 0 8px 30px rgba(223, 216, 236, 0.4);
       border-radius: 20px;
     }
-    h2 { font-size: 1.55em; color: #a790b8; margin-top: 0; border-bottom: 2px solid #f4f4fa; padding-bottom: 10px; margin-bottom: 20px;}
-    .portfolio-img {
-      max-width: 100%; width: 160px; height: 160px; border-radius: 10px;
-      box-shadow: 0 1px 7px #e0dde7; margin: 7px; object-fit: cover;
+    h2 { 
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.6em; 
+      color: var(--primary-purple); 
+      margin-top: 0; 
+      border-bottom: 2px solid #f4f4fa; 
+      padding-bottom: 15px; 
+      margin-bottom: 25px;
+      text-align: center;
     }
-    .media-row { display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; margin-bottom: 28px;}
-    .portfolio-row { display: flex; flex-wrap: wrap; justify-content: center; }
-    .service-list, .faq-list { padding: 0; list-style: none; margin: 0;}
-    .service-list li { margin-bottom: 18px; font-size: 1.09em; border-bottom: 1px dashed #eee; padding-bottom: 10px;}
-    .faq-list li { margin-bottom: 24px; background: #fdfdfd; padding: 15px; border-radius: 8px;}
-    .faq-title { font-weight: bold; color: #555; margin-bottom: 5px; display: block;}
-    .price { color: #7a6f8a; font-weight: bold; float: right;}
+
+    /* --- Portfolio --- */
+    .media-row { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-bottom: 28px;}
+    .portfolio-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+    .portfolio-img {
+      width: 150px; height: 150px; border-radius: 10px;
+      box-shadow: 0 2px 8px #e0dde7; object-fit: cover;
+    }
+
+    /* --- Price List --- */
+    .service-list { list-style: none; padding: 0; }
+    .service-list li { 
+        margin-bottom: 20px; 
+        border-bottom: 1px dashed #eee; 
+        padding-bottom: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+    }
+    .service-name { font-weight: 500; font-size: 1.1em; color: #333; }
+    .price { color: var(--primary-purple); font-weight: bold; font-family: 'Noto Serif TC', serif; font-size: 1.1em; }
+    .package-block {
+        background-color: #fdfafd;
+        padding: 20px;
+        border-radius: 10px;
+        border: 1px solid #efeef5;
+        margin-top: 30px;
+    }
+    .package-title {
+        color: var(--light-purple);
+        font-weight: bold;
+        margin-bottom: 15px;
+        display: block;
+        text-align: center;
+    }
+    .add-on {
+        text-align: center;
+        margin-top: 25px;
+        padding: 10px;
+        background: #f4f4fa;
+        color: #666;
+        border-radius: 8px;
+        font-size: 0.95em;
+    }
+
+    /* --- FAQ --- */
+    .faq-list { list-style: none; padding: 0; }
+    .faq-list li { margin-bottom: 20px; background: #fcfcfc; padding: 20px; border-radius: 10px; border-left: 4px solid var(--light-purple); }
+    .faq-title { font-weight: bold; color: var(--primary-purple); margin-bottom: 8px; display: block; font-size: 1.05em; }
+
+    /* --- Footer --- */
+    footer {
+      text-align: center; padding: 40px 20px; background: #333; color: #aaa; font-size: 0.85em;
+    }
+
+    /* --- Modal (Popup) Styles --- */
+    .modal {
+        display: none; 
+        position: fixed; 
+        z-index: 1000; 
+        left: 0; top: 0; 
+        width: 100%; height: 100%; 
+        overflow: auto; 
+        background-color: rgba(0,0,0,0.6); 
+        backdrop-filter: blur(4px);
+    }
+    .modal-content {
+        background-color: #fff;
+        margin: 5% auto;
+        padding: 30px;
+        border: 1px solid #888;
+        width: 90%; max-width: 500px;
+        border-radius: 16px;
+        position: relative;
+        animation: slideUp 0.4s ease;
+    }
+    @keyframes slideUp { from {transform: translateY(50px); opacity: 0;} to {transform: translateY(0); opacity: 1;} }
+    .close { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
+    .close:hover { color: #000; }
+    
+    .form-group { margin-bottom: 15px; text-align: left; }
+    .form-group label { display: block; margin-bottom: 6px; font-weight: 500; color: var(--primary-purple); font-size: 0.95em; }
+    .form-group input, .form-group select, .form-group textarea {
+        width: 100%; padding: 12px;
+        border: 1px solid #ddd; border-radius: 8px;
+        font-family: inherit; font-size: 1em;
+        background: #fafafa;
+    }
+    .form-group textarea::placeholder { color: #aaa; font-style: italic; font-size: 0.9em; }
+    #promoMessage { display: none; color: #5cb85c; font-size: 0.9em; margin-top: 5px; font-weight: bold; }
+
     @media(max-width: 720px){
-      section {padding: 24px 16px; margin-top: 30px;}
-      h2 {font-size: 1.3em;}
+      section {padding: 24px 16px; margin-top: 20px;}
       .media-row iframe { width: 100%; }
-      .price { float: none; display: block; margin-top: 5px;}
+      .service-list li { flex-direction: column; align-items: flex-start; }
+      .price { margin-top: 5px; }
     }
   </style>
 </head>
 <body>
+
   <header>
-    <img src="https://drive.google.com/thumbnail?id=填入Logo照片ID&sz=w500" 
-         alt="原彤skin logo" 
-         class="hero-img">
-         
-    <h1>原彤skin</h1>
-    <div class="tagline">為自己而改變，找回素顏的自信光采</div>
+    <img src="https://via.placeholder.com/150x150/e0dde7/7a6f8a?text=Yuki+Skin" alt="原彤skin logo" class="hero-img">
     
-    <a href="https://line.me/ti/p/YOUR_ID" class="cta" target="_blank">立即諮詢 / 預約</a>
-  </header>
-
-  <section>
-    <h2>品牌故事</h2>
-    <p style="line-height: 1.8;">
-      帶著素顏自信的初衷，我離開公司與職稱，專注於幫助每個女人找到屬於自己的自信色彩。<br>
-      這一次，我只為自己而活。<br><br>
-      <em>歡迎來聽聽我的故事，也讓我為妳找到專屬的自信色彩。</em>
-    </p>
-  </section>
-
-  <section>
-    <h2>作品集 Portfolio</h2>
-    <div class="media-row">
-        <iframe src="https://www.instagram.com/reel/DQ_EiSQkUd8/embed" width="300" height="500" frameborder="0" allowfullscreen></iframe>
-      <iframe src="https://www.instagram.com/reel/DROreuBEdBf/embed" width="300" height="500" frameborder="0" allowfullscreen></iframe>
-    </div>
-    
-    <div class="portfolio-row">
-      <img src="https://drive.google.com/thumbnail?id=填入照片ID_1&sz=w500" alt="紋路修復前" class="portfolio-img">
-      <img src="https://drive.google.com/thumbnail?id=填入照片ID_2&sz=w500" alt="紋路修復後" class="portfolio-img">
-      <img src="https://drive.google.com/thumbnail?id=填入照片ID_3&sz=w500" alt="唇部修護" class="portfolio-img">
-      <img src="https://drive.google.com/thumbnail?id=填入照片ID_4&sz=w500" alt="服務過程" class="portfolio-img">
-    </div>
-    
-    <p style="margin-top:20px; text-align: center;">
-      更多作品歡迎追蹤 <a href="https://www.instagram.com/tong.skin" target="_blank" style="color:#7a6f8a; font-weight:bold;">@tong.skin</a>
-    </p>
-  </section>
-
-  <section>
-    <h2>服務項目與價目表</h2>
-    <ul class="service-list">
-      <li>歐式霧唇 <span class="price">NT$ 9,800 起</span> <br><small style="color:#888">修復期短、色澤均勻透亮</small></li>
-      <li>韓式水晶唇 <span class="price">NT$ 12,000 起</span> <br><small style="color:#888">自然水嫩感、無痛感技術</small></li>
-      <li>男士塑型唇 <span class="price">NT$ 8,800 起</span> <br><small style="color:#888">低調修飾氣色、專屬客製色彩</small></li>
-    </ul>
-    <p style="text-align: center; margin-top: 20px; color: #7a6f8a;">※ 實際價格以現場諮詢評估為主</p>
-  </section>
-
-  <section>
-    <h2>常見問題 FAQ</h2>
-    <ul class="faq-list">
-      <li><span class="faq-title">Q: 生理期能不能做？</span>建議避開生理期前三天與期間，以確保修復效果最佳與降低敏感度。</li>
-      <li><span class="faq-title">Q: 效果能維持多久？</span>一般可維持 1-3 年，依個人新陳代謝與保養習慣而異。</li>
-      <li><span class="faq-title">Q: 施作過程會痛嗎？</span>我們採用專業無痛技術與舒緩膏，過程僅有輕微震動感，多數客人皆可睡著。</li>
-    </ul>
-  </section>
-
-  <footer style="text-align:center; padding:32px 8px; background:#f4f4fa; color:#a790b8; font-size: 0.9em;">
-    原彤skin © 2025 | Restore your beauty<br>
-    Designed for You
-  </footer>
-</body>
-</html>
+    <h1>原彤Skin</h1>
+    <div class="tagline">為自己而改變，找回素顏的
