@@ -2,15 +2,17 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <title>原彤Skin | Restore your beauty</title>
+  <title>原彤Skin | 專屬霧唇美學</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary-purple: #7a6f8a;
-      --light-purple: #a790b8;
-      --bg-color: #f8fafc;
+      /* 原彤Skin 品牌色系 */
+      --primary-purple: #7a6f8a;  /* 主色：質感紫灰 */
+      --light-purple: #a790b8;    /* 輔色：柔和紫 */
+      --bg-color: #f8fafc;        /* 背景：極淺灰紫 */
       --white: #ffffff;
+      --accent-pink: #E59595;     /* 試妝強調色 */
     }
 
     body {
@@ -22,18 +24,21 @@
       line-height: 1.6;
     }
 
-    /* --- Header --- */
+    /* --- Header 頂部區域 --- */
     header {
       text-align: center;
       padding: 55px 20px 40px 20px;
       background: var(--white);
       border-bottom: 1px solid #eee;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.02);
     }
     .hero-img {
-      width: 120px; height: auto; margin: 0 auto 20px auto;
-      border-radius: 50%; box-shadow: 0 4px 20px #d2cce3;
+      width: 130px; height: 130px; margin: 0 auto 20px auto;
+      border-radius: 50%; 
+      box-shadow: 0 4px 20px #d2cce3;
       object-fit: cover;
       display: block;
+      border: 3px solid #fff;
     }
     h1 { 
       font-family: 'Noto Serif TC', serif;
@@ -44,18 +49,18 @@
     }
     .tagline { font-size: 1.1em; color: var(--primary-purple); margin-bottom: 25px; }
     
-    /* --- Booking Button --- */
+    /* --- 預約按鈕樣式 --- */
     .cta-container {
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 10px;
+        gap: 12px;
     }
     .cta {
       display: inline-block;
       background: var(--primary-purple); color: #fff;
-      font-size: 1.1em; padding: 12px 40px;
-      border-radius: 50px; border: none; margin-top: 10px;
+      font-size: 1.1em; padding: 12px 45px;
+      border-radius: 50px; border: none; 
       box-shadow: 0 4px 15px rgba(122, 111, 138, 0.4);
       text-decoration: none; transition: all 0.3s;
       cursor: pointer;
@@ -66,12 +71,12 @@
         font-size: 0.9em;
         color: var(--light-purple);
         background: #f4f0f9;
-        padding: 5px 15px;
-        border-radius: 15px;
+        padding: 6px 18px;
+        border-radius: 20px;
         border: 1px dashed var(--light-purple);
     }
 
-    /* --- Sections --- */
+    /* --- 通用區塊樣式 --- */
     section {
       max-width: 800px;
       margin: 40px auto;
@@ -91,7 +96,7 @@
       text-align: center;
     }
 
-    /* --- Portfolio --- */
+    /* --- 作品集樣式 --- */
     .media-row { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-bottom: 28px;}
     .portfolio-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
     .portfolio-img {
@@ -99,71 +104,35 @@
       box-shadow: 0 2px 8px #e0dde7; object-fit: cover;
     }
 
-    /* --- Price List --- */
-    .service-list { list-style: none; padding: 0; }
-    .service-list li { 
-        margin-bottom: 20px; 
-        border-bottom: 1px dashed #eee; 
-        padding-bottom: 15px;
-        display: flex;
-        justify-content: space-between;
-        align-items: baseline;
-    }
-    .service-name { font-weight: 500; font-size: 1.1em; color: #333; }
-    .price { color: var(--primary-purple); font-weight: bold; font-family: 'Noto Serif TC', serif; font-size: 1.1em; }
-    .package-block {
-        background-color: #fdfafd;
-        padding: 20px;
-        border-radius: 10px;
-        border: 1px solid #efeef5;
-        margin-top: 30px;
-    }
-    .package-title {
-        color: var(--light-purple);
-        font-weight: bold;
-        margin-bottom: 15px;
-        display: block;
+    /* --- 虛擬試妝 APP 樣式 (Virtual Try-On) --- */
+    #try-on-app {
         text-align: center;
+        background: #fffafa; /* 微粉背景區分 */
+        border: 2px dashed var(--light-purple);
     }
-    .add-on {
-        text-align: center;
-        margin-top: 25px;
-        padding: 10px;
-        background: #f4f4fa;
-        color: #666;
-        border-radius: 8px;
-        font-size: 0.95em;
+    .app-container {
+        max-width: 450px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.08);
     }
-
-    /* --- FAQ --- */
-    .faq-list { list-style: none; padding: 0; }
-    .faq-list li { margin-bottom: 20px; background: #fcfcfc; padding: 20px; border-radius: 10px; border-left: 4px solid var(--light-purple); }
-    .faq-title { font-weight: bold; color: var(--primary-purple); margin-bottom: 8px; display: block; font-size: 1.05em; }
-
-    /* --- Footer --- */
-    footer {
-      text-align: center; padding: 40px 20px; background: #333; color: #aaa; font-size: 0.85em;
+    .preview-box {
+        width: 100%; height: 320px; background-color: #f0f0f0; border-radius: 10px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 1px solid #ddd;
     }
-
-    /* --- Modal (Popup) Styles --- */
-    .modal {
+    #user-photo { width: 100%; height: 100%; object-fit: cover; }
+    #upload-hint { color: #999; font-weight: 500; pointer-events: none; }
+    #photo-input { position: absolute; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 10; }
+    
+    /* 唇型遮罩 */
+    .lip-overlay {
+        position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+        width: 100px; height: 50px; 
+        pointer-events: none; /* 讓點擊穿透 */
         display: none; 
-        position: fixed; 
-        z-index: 1000; 
-        left: 0; top: 0; 
-        width: 100%; height: 100%; 
-        overflow: auto; 
-        background-color: rgba(0,0,0,0.6); 
-        backdrop-filter: blur(4px);
+        mix-blend-mode: multiply; /* 讓顏色像化妝一樣疊上去 */
+        opacity: 0.7;
     }
-    .modal-content {
-        background-color: #fff;
-        margin: 5% auto;
-        padding: 30px;
-        border: 1px solid #888;
-        width: 90%; max-width: 500px;
-        border-radius: 16px;
-        position: relative;
-        animation: slideUp 0.4s ease;
-    }
-    @keyframes slideUp { from {transform: translateY(
+    .lip-overlay svg { width: 100%; height: 100%; fill: #E59595; filter: blur(4px); }
+    
+    /* 控制面板 */
+    .controls { margin-top: 25px; }
+    .color-palette { display: flex; justify-content: center; gap: 15px; margin-bottom: 25px; }
+    .color-btn {
+        width: 40px; height: 40px; border
