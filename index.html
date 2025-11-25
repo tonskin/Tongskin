@@ -1,204 +1,169 @@
-<section id="try-on-app">
-    <h2>Virtual Lip Try-On<br><span style="font-size:0.6em; color:#888;">線上唇色模擬體驗</span></h2>
-    <p style="text-align:center; margin-bottom:20px; font-size:0.9em;">
-        上傳照片 ➤ 調整唇型位置 ➤ 挑選顏色<br>
-        <small>*模擬僅供參考，實際成色以現場諮詢為主</small>
-    </p>
-
-    <div class="app-container">
-        <div class="preview-box">
-            <p id="upload-hint">📷 點此上傳或是拍攝一張正臉照</p>
-            <img id="user-photo" src="" style="display:none;">
-            
-            <div id="lip-mask" class="lip-overlay">
-                <svg viewBox="0 0 200 100" preserveAspectRatio="none">
-                    <path d="M10,40 Q50,60 100,40 Q150,60 190,40 Q150,80 100,90 Q50,80 10,40 Z M15,40 Q50,20 100,30 Q150,20 185,40 Q150,50 100,50 Q50,50 15,40" />
-                </svg>
-            </div>
-            <input type="file" id="photo-input" accept="image/*">
-        </div>
-
-        <div class="controls" id="control-panel" style="display:none;">
-            
-            <div class="color-palette">
-                <div class="color-btn" style="background:#E59595;" onclick="changeColor('#E59595')" title="粉嫩色"></div>
-                <div class="color-btn" style="background:#D65656;" onclick="changeColor('#D65656')" title="經典紅"></div>
-                <div class="color-btn" style="background:#E07B5C;" onclick="changeColor('#E07B5C')" title="暖橘色"></div>
-                <div class="color-btn" style="background:#B05C5C;" onclick="changeColor('#B05C5C')" title="乾燥玫瑰"></div>
-            </div>
-
-            <div class="slider-group">
-                <label>左右移動</label>
-                <input type="range" min="0" max="100" value="50" oninput="moveLip('x', this.value)">
-            </div>
-            <div class="slider-group">
-                <label>上下移動</label>
-                <input type="range" min="0" max="100" value="50" oninput="moveLip('y', this.value)">
-            </div>
-            <div class="slider-group">
-                <label>縮放大小</label>
-                <input type="range" min="10" max="150" value="50" oninput="resizeLip(this.value)">
-            </div>
-            <div class="slider-group">
-                <label>顏色濃度</label>
-                <input type="range" min="0.1" max="1" step="0.1" value="0.6" oninput="opacityLip(this.value)">
-            </div>
-        </div>
-    </div>
-</section>
-
-<style>
-    /* 試妝區塊樣式 */
-    #try-on-app {
-        text-align: center;
-        background: #fff5f5;
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>原彤Skin | Restore your beauty</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-purple: #7a6f8a;
+      --light-purple: #a790b8;
+      --bg-color: #f8fafc;
+      --white: #ffffff;
     }
+
+    body {
+      font-family: "Noto Sans TC", Arial, sans-serif;
+      background: var(--bg-color);
+      color: #444;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+
+    /* --- Header --- */
+    header {
+      text-align: center;
+      padding: 55px 20px 40px 20px;
+      background: var(--white);
+      border-bottom: 1px solid #eee;
+    }
+    .hero-img {
+      width: 120px; height: auto; margin: 0 auto 20px auto;
+      border-radius: 50%; box-shadow: 0 4px 20px #d2cce3;
+      object-fit: cover;
+      display: block;
+    }
+    h1 { 
+      font-family: 'Noto Serif TC', serif;
+      font-size: 2.2em; 
+      letter-spacing: .1em; 
+      margin-bottom: 0.2em; 
+      color: #333;
+    }
+    .tagline { font-size: 1.1em; color: var(--primary-purple); margin-bottom: 25px; }
     
-    .app-container {
-        max-width: 400px;
-        margin: 0 auto;
-        background: #fff;
-        padding: 20px;
+    /* --- Booking Button --- */
+    .cta-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    .cta {
+      display: inline-block;
+      background: var(--primary-purple); color: #fff;
+      font-size: 1.1em; padding: 12px 40px;
+      border-radius: 50px; border: none; margin-top: 10px;
+      box-shadow: 0 4px 15px rgba(122, 111, 138, 0.4);
+      text-decoration: none; transition: all 0.3s;
+      cursor: pointer;
+    }
+    .cta:hover { background: #685d7a; transform: translateY(-2px); }
+    
+    .promo-code {
+        font-size: 0.9em;
+        color: var(--light-purple);
+        background: #f4f0f9;
+        padding: 5px 15px;
         border-radius: 15px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        border: 1px dashed var(--light-purple);
     }
 
-    .preview-box {
-        width: 100%;
-        height: 300px;
-        background-color: #eee;
-        border: 2px dashed #ccc;
-        border-radius: 10px;
-        position: relative;
-        overflow: hidden;
+    /* --- Sections --- */
+    section {
+      max-width: 800px;
+      margin: 40px auto;
+      background: var(--white);
+      padding: 40px 30px;
+      box-shadow: 0 8px 30px rgba(223, 216, 236, 0.4);
+      border-radius: 20px;
+    }
+    h2 { 
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.6em; 
+      color: var(--primary-purple); 
+      margin-top: 0; 
+      border-bottom: 2px solid #f4f4fa; 
+      padding-bottom: 15px; 
+      margin-bottom: 25px;
+      text-align: center;
+    }
+
+    /* --- Portfolio --- */
+    .media-row { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-bottom: 28px;}
+    .portfolio-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+    .portfolio-img {
+      width: 150px; height: 150px; border-radius: 10px;
+      box-shadow: 0 2px 8px #e0dde7; object-fit: cover;
+    }
+
+    /* --- Price List --- */
+    .service-list { list-style: none; padding: 0; }
+    .service-list li { 
+        margin-bottom: 20px; 
+        border-bottom: 1px dashed #eee; 
+        padding-bottom: 15px;
         display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-    }
-
-    #user-photo {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    #upload-hint {
-        color: #888;
-        font-weight: bold;
-        pointer-events: none;
-    }
-
-    #photo-input {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        cursor: pointer;
-        z-index: 10;
-    }
-
-    /* 唇型遮罩 */
-    .lip-overlay {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 80px; /* 初始寬度 */
-        height: 40px; /* 初始高度 */
-        pointer-events: none; /* 讓點擊穿透 */
-        display: none; /* 一開始隱藏 */
-        mix-blend-mode: multiply; /* 讓顏色像化妝一樣疊上去 */
-        opacity: 0.6;
-    }
-    
-    .lip-overlay svg {
-        width: 100%;
-        height: 100%;
-        fill: #E59595; /* 預設顏色 */
-        filter: blur(2px); /* 讓邊緣柔和一點比較像霧唇 */
-    }
-
-    .controls {
-        margin-top: 20px;
-    }
-
-    .color-palette {
-        display: flex;
-        justify-content: center;
-        gap: 15px;
-        margin-bottom: 20px;
-    }
-
-    .color-btn {
-        width: 35px;
-        height: 35px;
-        border-radius: 50%;
-        cursor: pointer;
-        border: 2px solid #fff;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        transition: transform 0.2s;
-    }
-    .color-btn:hover { transform: scale(1.1); }
-
-    .slider-group {
-        display: flex;
-        align-items: center;
         justify-content: space-between;
-        margin-bottom: 10px;
-        font-size: 0.85em;
+        align-items: baseline;
+    }
+    .service-name { font-weight: 500; font-size: 1.1em; color: #333; }
+    .price { color: var(--primary-purple); font-weight: bold; font-family: 'Noto Serif TC', serif; font-size: 1.1em; }
+    .package-block {
+        background-color: #fdfafd;
+        padding: 20px;
+        border-radius: 10px;
+        border: 1px solid #efeef5;
+        margin-top: 30px;
+    }
+    .package-title {
+        color: var(--light-purple);
+        font-weight: bold;
+        margin-bottom: 15px;
+        display: block;
+        text-align: center;
+    }
+    .add-on {
+        text-align: center;
+        margin-top: 25px;
+        padding: 10px;
+        background: #f4f4fa;
         color: #666;
-    }
-    .slider-group input { width: 70%; }
-</style>
-
-<script>
-    // 試妝功能的程式邏輯
-    const photoInput = document.getElementById('photo-input');
-    const userPhoto = document.getElementById('user-photo');
-    const uploadHint = document.getElementById('upload-hint');
-    const controlPanel = document.getElementById('control-panel');
-    const lipMask = document.getElementById('lip-mask');
-    const lipSvg = lipMask.querySelector('svg');
-
-    // 1. 處理照片上傳
-    photoInput.addEventListener('change', function(e) {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                userPhoto.src = e.target.result;
-                userPhoto.style.display = 'block';
-                uploadHint.style.display = 'none';
-                controlPanel.style.display = 'block'; // 顯示控制項
-                lipMask.style.display = 'block'; // 顯示嘴唇
-            }
-            reader.readAsDataURL(file);
-        }
-    });
-
-    // 2. 改變顏色
-    function changeColor(color) {
-        lipSvg.style.fill = color;
+        border-radius: 8px;
+        font-size: 0.95em;
     }
 
-    // 3. 移動嘴唇位置
-    function moveLip(axis, val) {
-        if(axis === 'x') {
-            lipMask.style.left = val + '%';
-        } else {
-            lipMask.style.top = val + '%';
-        }
+    /* --- FAQ --- */
+    .faq-list { list-style: none; padding: 0; }
+    .faq-list li { margin-bottom: 20px; background: #fcfcfc; padding: 20px; border-radius: 10px; border-left: 4px solid var(--light-purple); }
+    .faq-title { font-weight: bold; color: var(--primary-purple); margin-bottom: 8px; display: block; font-size: 1.05em; }
+
+    /* --- Footer --- */
+    footer {
+      text-align: center; padding: 40px 20px; background: #333; color: #aaa; font-size: 0.85em;
     }
 
-    // 4. 調整大小
-    function resizeLip(val) {
-        lipMask.style.width = (val * 1.6) + 'px';
-        lipMask.style.height = (val * 0.8) + 'px';
+    /* --- Modal (Popup) Styles --- */
+    .modal {
+        display: none; 
+        position: fixed; 
+        z-index: 1000; 
+        left: 0; top: 0; 
+        width: 100%; height: 100%; 
+        overflow: auto; 
+        background-color: rgba(0,0,0,0.6); 
+        backdrop-filter: blur(4px);
     }
-
-    // 5. 調整濃度
-    function opacityLip(val) {
-        lipMask.style.opacity = val;
+    .modal-content {
+        background-color: #fff;
+        margin: 5% auto;
+        padding: 30px;
+        border: 1px solid #888;
+        width: 90%; max-width: 500px;
+        border-radius: 16px;
+        position: relative;
+        animation: slideUp 0.4s ease;
     }
-</script>
+    @keyframes slideUp { from {transform: translateY(
