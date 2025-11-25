@@ -1,335 +1,367 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>霧唇專屬模擬 | 原彤Skin</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
-    <style>
-        /* --- 全局設定 --- */
-        :root {
-            --primary-color: #D98E7E; /* 蜜桃主色 */
-            --text-color: #444;
-            --bg-color: #f9f9f9;
-        }
+  <meta charset="UTF-8">
+  <title>原彤Skin | 專屬霧唇模擬</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-purple: #7a6f8a;
+      --light-purple: #a790b8;
+      --bg-color: #f8fafc;
+      --white: #ffffff;
+    }
 
-        body {
-            font-family: "Noto Sans TC", Helvetica, Arial, sans-serif;
-            margin: 0; padding: 0;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            padding-bottom: 80px; /* 預留底部空間給預約按鈕 */
-        }
+    body {
+      font-family: "Noto Sans TC", Arial, sans-serif;
+      background: var(--bg-color);
+      color: #444;
+      margin: 0; padding: 0;
+      line-height: 1.6;
+      padding-bottom: 80px; /* 預留底部按鈕空間 */
+    }
 
-        /* --- Header --- */
-        header {
-            background: #fff;
-            padding: 15px 20px;
-            text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            position: sticky; top: 0; z-index: 100;
-        }
-        .logo {
-            font-family: 'Noto Serif TC', serif;
-            font-size: 24px; font-weight: bold; color: #444;
-            letter-spacing: 1px;
-        }
+    /* --- Header & Logo --- */
+    header {
+      text-align: center;
+      padding: 30px 20px;
+      background: var(--white);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      position: sticky; top: 0; z-index: 100;
+    }
+    .logo-text {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 2em; 
+      letter-spacing: .1em; 
+      color: #333;
+      margin: 0;
+      font-weight: bold;
+    }
+    
+    /* --- 通用區塊設定 --- */
+    section {
+      max-width: 600px;
+      margin: 30px auto;
+      background: var(--white);
+      padding: 30px 20px;
+      box-shadow: 0 8px 30px rgba(223, 216, 236, 0.4);
+      border-radius: 20px;
+    }
+    h2 { 
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.5em; 
+      color: var(--primary-purple); 
+      margin-top: 0; 
+      border-bottom: 2px solid #f4f4fa; 
+      padding-bottom: 10px; 
+      margin-bottom: 20px;
+      text-align: center;
+    }
 
-        /* --- 模擬器核心區塊 --- */
-        .simulator-container {
-            max-width: 480px;
-            margin: 20px auto;
-            background: #fff;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
+    /* --- 核心功能：霧唇模擬器 --- */
+    .simulator-box {
+        position: relative;
+        width: 100%; height: 400px;
+        background-color: #eee;
+        background-image: url('https://placehold.co/400x500/png?text=點擊上傳您的照片'); 
+        background-size: cover; background-position: center;
+        border-radius: 12px;
+        overflow: hidden;
+        margin-bottom: 20px;
+        box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
+        cursor: pointer;
+    }
+    .lip-overlay {
+        position: absolute;
+        top: 55%; left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100px; height: 35px;
+        background-color: #D98E7E; /* 預設顏色 */
+        border-radius: 50%;
+        filter: blur(10px);
+        mix-blend-mode: multiply;
+        opacity: 0.65;
+        cursor: move;
+    }
+    .controls { text-align: center; }
+    .color-name { 
+        display: inline-block; background: #f4f0f9; color: var(--primary-purple); 
+        padding: 4px 12px; border-radius: 15px; font-size: 0.9em; margin-bottom: 15px; font-weight: bold;
+    }
+    .color-grid {
+        display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; justify-items: center;
+    }
+    .color-btn {
+        width: 45px; height: 45px; border-radius: 50%;
+        border: 2px solid #fff; 
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        cursor: pointer; transition: transform 0.2s;
+    }
+    .color-btn.active { border-color: var(--primary-purple); transform: scale(1.15); }
 
-        .photo-area {
-            position: relative;
-            width: 100%; height: 400px;
-            background-color: #eee;
-            /* 預設背景圖，請換成您的範例圖 */
-            background-image: url('https://placehold.co/400x500/png?text=點擊上傳照片'); 
-            background-size: cover; background-position: center;
-            display: flex; align-items: flex-end; justify-content: center;
-            overflow: hidden;
-        }
+    /* 8種顏色定義 */
+    .c1 { background: #D98E7E; } .c2 { background: #E6B6AD; }
+    .c3 { background: #C67C7B; } .c4 { background: #DFA98F; }
+    .c5 { background: #B86E6E; } .c6 { background: #D2A889; }
+    .c7 { background: #EA9E8D; } .c8 { background: #C06C6C; }
 
-        /* 實際上傳 input 隱藏 */
-        #uploadInput { display: none; }
-        .upload-hint {
-            position: absolute; top: 10px; right: 10px;
-            background: rgba(255,255,255,0.8); padding: 5px 10px;
-            border-radius: 20px; font-size: 12px; cursor: pointer;
-            z-index: 10;
-        }
+    /* --- 作品集 --- */
+    .portfolio-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+    .portfolio-img {
+      width: 48%; height: 180px; border-radius: 10px;
+      box-shadow: 0 2px 8px #e0dde7; object-fit: cover;
+    }
 
-        .lip-overlay {
-            position: absolute;
-            top: 55%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100px; height: 40px;
-            background-color: transparent;
-            border-radius: 50%;
-            filter: blur(12px); /* 霧感關鍵 */
-            mix-blend-mode: multiply;
-            opacity: 0.6;
-            pointer-events: auto; /* 允許拖動 */
-            cursor: move;
-        }
+    /* --- 價目表樣式 --- */
+    .service-list { list-style: none; padding: 0; }
+    .service-list li { 
+        margin-bottom: 15px; border-bottom: 1px dashed #eee; padding-bottom: 10px;
+        display: flex; justify-content: space-between; align-items: baseline;
+    }
+    .service-name { font-weight: 500; color: #333; }
+    .price { color: var(--primary-purple); font-weight: bold; font-family: 'Noto Serif TC', serif; }
 
-        .compare-btn {
-            position: absolute; bottom: 20px;
-            background: rgba(0, 0, 0, 0.6); color: #fff;
-            padding: 8px 16px; border-radius: 30px;
-            font-size: 14px; cursor: pointer;
-            backdrop-filter: blur(4px);
-            user-select: none;
-        }
+    /* --- 底部懸浮按鈕 (CTA) --- */
+    .floating-bar {
+        position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+        z-index: 99; width: 90%; max-width: 400px;
+        display: flex; flex-direction: column; align-items: center; gap: 5px;
+    }
+    .cta-btn {
+        background: var(--primary-purple); color: #fff;
+        width: 100%; padding: 14px; text-align: center;
+        border-radius: 50px; font-size: 1.1em; font-weight: bold;
+        text-decoration: none; box-shadow: 0 4px 15px rgba(122, 111, 138, 0.5);
+        border: none; cursor: pointer;
+    }
+    .promo-hint { font-size: 0.85em; color: var(--primary-purple); background: rgba(255,255,255,0.9); padding: 4px 12px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
 
-        /* --- 控制面板 --- */
-        .controls { padding: 25px; text-align: center; }
-        .tag {
-            display: inline-block; background-color: #fde8e8; color: #c55a5a;
-            font-size: 12px; padding: 4px 10px; border-radius: 4px; margin-bottom: 10px;
-        }
-        h2 { margin: 5px 0 10px 0; font-size: 22px; color: #2c2c2c; font-family: 'Noto Serif TC', serif; }
-        p.slogan { margin: 0 0 25px 0; font-size: 15px; color: #666; }
+    /* --- Modal 彈窗樣式 --- */
+    .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); backdrop-filter: blur(3px); overflow: auto;}
+    .modal-content { background-color: #fff; margin: 5% auto; padding: 25px; width: 85%; max-width: 450px; border-radius: 16px; animation: slideUp 0.4s ease; }
+    @keyframes slideUp { from {transform: translateY(50px); opacity: 0;} to {transform: translateY(0); opacity: 1;} }
+    .close { float: right; font-size: 28px; cursor: pointer; color: #aaa; }
+    
+    .form-group { margin-bottom: 12px; text-align: left; }
+    .form-group label { display: block; margin-bottom: 5px; font-weight: 500; color: var(--primary-purple); font-size: 0.9em; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; background: #fafafa; }
+    #promoMessage { display: none; color: #28a745; font-size: 0.9em; margin-top: 5px; font-weight: bold; }
 
-        .color-grid {
-            display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; justify-items: center;
-        }
-        .color-btn {
-            width: 50px; height: 50px; border-radius: 50%;
-            border: 2px solid #eee; cursor: pointer;
-            transition: transform 0.2s, border-color 0.2s;
-        }
-        .color-btn.active { border-color: #555; transform: scale(1.15); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        
-        /* 8色定義 */
-        .c1 { background: #D98E7E; } .c2 { background: #E6B6AD; }
-        .c3 { background: #C67C7B; } .c4 { background: #DFA98F; }
-        .c5 { background: #B86E6E; } .c6 { background: #D2A889; }
-        .c7 { background: #EA9E8D; } .c8 { background: #C06C6C; }
-
-        /* --- 作品集 --- */
-        .portfolio-section { max-width: 480px; margin: 30px auto; padding: 0 20px; }
-        .portfolio-title {
-            font-size: 18px; margin-bottom: 15px;
-            border-left: 4px solid var(--primary-color); padding-left: 10px;
-            font-family: 'Noto Serif TC', serif;
-        }
-        .portfolio-img {
-            width: 100%; border-radius: 12px; margin-bottom: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08); display: block;
-            object-fit: cover;
-        }
-
-        /* --- 懸浮預約按鈕 --- */
-        .floating-cta {
-            position: fixed; bottom: 20px; left: 50%;
-            transform: translateX(-50%);
-            background: #444; color: #fff;
-            padding: 12px 35px; border-radius: 50px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-            font-size: 16px; font-weight: bold; border: none;
-            cursor: pointer; z-index: 99;
-            transition: background 0.3s;
-        }
-        .floating-cta:hover { background: #222; }
-
-        /* --- Modal 預約彈窗 (沿用上一版) --- */
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); backdrop-filter: blur(4px); }
-        .modal-content { background-color: #fff; margin: 10% auto; padding: 30px; width: 85%; max-width: 400px; border-radius: 16px; animation: slideUp 0.4s ease; position: relative; }
-        @keyframes slideUp { from {transform: translateY(50px); opacity: 0;} to {transform: translateY(0); opacity: 1;} }
-        .close { float: right; font-size: 28px; cursor: pointer; color: #aaa; }
-        .form-group { margin-bottom: 15px; text-align: left; }
-        .form-group label { display: block; margin-bottom: 5px; font-size: 0.9em; color: var(--primary-color); }
-        .form-group input, .form-group select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
-        .submit-btn { width: 100%; padding: 12px; background: var(--primary-color); color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; }
-
-    </style>
+    /* 隱藏上傳 input */
+    #uploadInput { display: none; }
+  </style>
 </head>
 <body>
 
-    <header>
-        <div class="logo">logo1</div>
-    </header>
+  <header>
+    <h1 class="logo-text">logo1</h1>
+  </header>
 
-    <div class="simulator-container">
-        <div class="photo-area" id="photoArea" onclick="document.getElementById('uploadInput').click()">
-            <div class="upload-hint">📷 上傳照片</div>
-            <input type="file" id="uploadInput" accept="image/*" onchange="loadPhoto(event)">
-            
-            <div class="lip-overlay" id="lipOverlay"></div>
-            
-            <div class="compare-btn" onmousedown="showOriginal()" onmouseup="restoreColor()" ontouchstart="showOriginal()" ontouchend="restoreColor()">
-                👁️ 長按對比原圖
-            </div>
-        </div>
-
-        <div class="controls">
-            <span class="tag">蜜桃烏龍</span>
-            <h2>模擬您的專屬唇色</h2>
-            <p class="slogan">點擊色塊切換，找到最適合妳的自信色彩</p>
-
-            <div class="color-grid">
-                <div class="color-btn c1 active" onclick="changeColor('#D98E7E', '蜜桃烏龍', this)"></div>
-                <div class="color-btn c2" onclick="changeColor('#E6B6AD', '純淨裸粉', this)"></div>
-                <div class="color-btn c3" onclick="changeColor('#C67C7B', '溫柔豆沙', this)"></div>
-                <div class="color-btn c4" onclick="changeColor('#DFA98F', '活力珊瑚', this)"></div>
-                <div class="color-btn c5" onclick="changeColor('#B86E6E', '乾燥玫瑰', this)"></div>
-                <div class="color-btn c6" onclick="changeColor('#D2A889', '泰式奶茶', this)"></div>
-                <div class="color-btn c7" onclick="changeColor('#EA9E8D', '甜心粉橘', this)"></div>
-                <div class="color-btn c8" onclick="changeColor('#C06C6C', '復古磚紅', this)"></div>
-            </div>
-        </div>
+  <section>
+    <h2>專屬唇色模擬 Simulator</h2>
+    <div class="simulator-box" id="photoArea" onclick="document.getElementById('uploadInput').click()">
+        <input type="file" id="uploadInput" accept="image/*" onchange="loadPhoto(event)">
+        <div class="lip-overlay" id="lipOverlay"></div>
+        <div style="position:absolute; top:10px; right:10px; background:rgba(255,255,255,0.7); padding:4px 8px; border-radius:10px; font-size:12px;">📷 點擊換圖</div>
+        <div style="position:absolute; bottom:10px; left:50%; transform:translateX(-50%); color:white; font-size:12px; text-shadow:0 1px 3px rgba(0,0,0,0.5);">✨ 可拖曳色塊調整位置</div>
     </div>
 
-    <div class="portfolio-section">
-        <h3 class="portfolio-title">精選作品集 Portfolio</h3>
-        <img src="p1.jpg" alt="作品集1" class="portfolio-img">
-        <img src="p2.jpg" alt="作品集2" class="portfolio-img">
-    </div>
-
-    <button class="floating-cta" onclick="openModal()">立即預約諮詢 ✨</button>
-
-    <div id="bookingModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <h3 style="text-align: center; color: #444;">預約諮詢</h3>
-            <form id="bookingForm">
-                <div class="form-group">
-                    <label>姓名 Name</label>
-                    <input type="text" id="name" required>
-                </div>
-                <div class="form-group">
-                    <label>預約日期 Date</label>
-                    <input type="date" id="bookDate" required>
-                </div>
-                <div class="form-group">
-                    <label>選擇項目 Service</label>
-                    <select id="service">
-                        <option>唇色還原</option>
-                        <option>唇淡色</option>
-                        <option>諮詢其他</option>
-                    </select>
-                </div>
-                <button type="submit" class="submit-btn">送出預約信</button>
-            </form>
+    <div class="controls">
+        <span class="color-name" id="colorName">蜜桃烏龍</span>
+        <div class="color-grid">
+            <div class="color-btn c1 active" onclick="changeColor('#D98E7E', '蜜桃烏龍', this)"></div>
+            <div class="color-btn c2" onclick="changeColor('#E6B6AD', '純淨裸粉', this)"></div>
+            <div class="color-btn c3" onclick="changeColor('#C67C7B', '溫柔豆沙', this)"></div>
+            <div class="color-btn c4" onclick="changeColor('#DFA98F', '活力珊瑚', this)"></div>
+            <div class="color-btn c5" onclick="changeColor('#B86E6E', '乾燥玫瑰', this)"></div>
+            <div class="color-btn c6" onclick="changeColor('#D2A889', '泰式奶茶', this)"></div>
+            <div class="color-btn c7" onclick="changeColor('#EA9E8D', '甜心粉橘', this)"></div>
+            <div class="color-btn c8" onclick="changeColor('#C06C6C', '復古磚紅', this)"></div>
         </div>
     </div>
+  </section>
 
-    <script>
-        // --- 1. 唇色模擬邏輯 ---
-        let currentColor = '#D98E7E';
-        const lipOverlay = document.getElementById('lipOverlay');
-        const tagText = document.querySelector('.tag');
-        const btns = document.querySelectorAll('.color-btn');
+  <section>
+    <h2>作品集 Portfolio</h2>
+    <div class="portfolio-row">
+      <img src="p1.jpg" alt="作品集1" class="portfolio-img">
+      <img src="p2.jpg" alt="作品集2" class="portfolio-img">
+    </div>
+    <p style="text-align:center; font-size:0.9em; color:#888; margin-top:15px;">
+        點擊下方按鈕預約，為自己找回自信色彩。
+    </p>
+  </section>
 
-        lipOverlay.style.backgroundColor = currentColor;
+  <section>
+    <h2>服務項目 Service</h2>
+    <ul class="service-list">
+      <li><span class="service-name">唇色還原</span><span class="price">NT$ 7,980</span></li>
+      <li><span class="service-name">唇淡色</span><span class="price">NT$ 3,490</span></li>
+      <li><span class="service-name">唇氧護</span><span class="price">NT$ 1,980</span></li>
+      <li><span class="service-name">淡色包套 (3堂)</span><span class="price">NT$ 8,490</span></li>
+    </ul>
+  </section>
 
-        function changeColor(color, name, btnElement) {
-            currentColor = color;
-            lipOverlay.style.backgroundColor = color;
-            tagText.innerText = name;
-            btns.forEach(b => b.classList.remove('active'));
-            btnElement.classList.add('active');
-        }
+  <div class="floating-bar">
+      <div class="promo-hint">輸入代碼 <b>Yuki</b> 享神祕好禮</div>
+      <button id="openModalBtn" class="cta-btn">立即諮詢 / 預約</button>
+  </div>
 
-        function showOriginal() { lipOverlay.style.opacity = '0'; }
-        function restoreColor() { lipOverlay.style.opacity = '0.6'; }
-
-        // --- 2. 照片上傳預覽功能 ---
-        function loadPhoto(event) {
-            const photoArea = document.getElementById('photoArea');
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    photoArea.style.backgroundImage = `url(${e.target.result})`;
-                }
-                reader.readAsDataURL(file);
-            }
-        }
-
-        // --- 3. 預約彈窗邏輯 ---
-        const modal = document.getElementById("bookingModal");
-        function openModal() { modal.style.display = "block"; }
-        function closeModal() { modal.style.display = "none"; }
-        window.onclick = function(e) { if(e.target == modal) closeModal(); }
-
-        // --- 4. 預約信件發送 ---
-        document.getElementById('bookingForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const name = document.getElementById('name').value;
-            const date = document.getElementById('bookDate').value;
-            const service = document.getElementById('service').value;
-            
-            // 設定您的收件信箱
-            const emails = "a911097777@gmail.com,wenheny831@gmail.com";
-            const subject = `【模擬器預約】${name} - ${service}`;
-            const body = `姓名：${name}\n預約日期：${date}\n項目：${service}`;
-            
-            window.location.href = `mailto:${emails}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-            closeModal();
-        });
-
-        // --- 5. 讓唇色遮罩可以拖曳 (手機/電腦通用) ---
-        let isDragging = false;
-        let startX, startY, initialLeft, initialTop;
-
-        // 觸控事件
-        lipOverlay.addEventListener('touchstart', dragStart, {passive: false});
-        lipOverlay.addEventListener('touchmove', dragMove, {passive: false});
-        lipOverlay.addEventListener('touchend', dragEnd);
+  <div id="bookingModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3 style="text-align: center; color: var(--primary-purple); margin-bottom: 20px;">預約資料填寫</h3>
         
-        // 滑鼠事件
-        lipOverlay.addEventListener('mousedown', dragStart);
-        window.addEventListener('mousemove', dragMove);
-        window.addEventListener('mouseup', dragEnd);
+        <form id="bookingForm">
+            <div class="form-group">
+                <label>姓名 Name</label>
+                <input type="text" id="name" required placeholder="請輸入您的姓名">
+            </div>
 
-        function dragStart(e) {
-            if (e.type === 'touchstart') {
-                startX = e.touches[0].clientX;
-                startY = e.touches[0].clientY;
-            } else {
-                startX = e.clientX;
-                startY = e.clientY;
+            <div class="form-group">
+                <label>電話 Phone</label>
+                <input type="tel" id="phone" required placeholder="09xx-xxx-xxx">
+            </div>
+
+            <div class="form-group">
+                <label>預約日期 (近30天)</label>
+                <input type="date" id="bookDate" required>
+            </div>
+
+            <div class="form-group">
+                <label>預約時段</label>
+                <select id="bookTime" required></select>
+            </div>
+
+            <div class="form-group">
+                <label>優惠代碼 Promo Code</label>
+                <input type="text" id="promoCode" placeholder="輸入 Yuki">
+                <div id="promoMessage">🎉 優惠代碼有效！贈送精美小禮物！</div>
+            </div>
+
+            <button type="submit" class="cta-btn" style="border-radius: 8px; font-size:1em;">確認預約 (送出信件)</button>
+        </form>
+    </div>
+  </div>
+
+  <script>
+    /* ====================
+       1. 霧唇模擬器邏輯
+       ==================== */
+    let currentColor = '#D98E7E';
+    const lipOverlay = document.getElementById('lipOverlay');
+    const colorNameDisplay = document.getElementById('colorName');
+    const colorBtns = document.querySelectorAll('.color-btn');
+
+    // 切換顏色
+    function changeColor(color, name, btn) {
+        currentColor = color;
+        lipOverlay.style.backgroundColor = color;
+        colorNameDisplay.innerText = name;
+        colorBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+    }
+
+    // 上傳照片
+    function loadPhoto(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('photoArea').style.backgroundImage = `url(${e.target.result})`;
             }
-            isDragging = true;
-            const rect = lipOverlay.getBoundingClientRect();
-            // 記錄相對於 parent 的位置
-            initialLeft = lipOverlay.offsetLeft;
-            initialTop = lipOverlay.offsetTop;
-            e.preventDefault(); // 防止滾動
+            reader.readAsDataURL(file);
         }
+    }
 
-        function dragMove(e) {
-            if (!isDragging) return;
-            let currentX, currentY;
-            
-            if (e.type === 'touchmove') {
-                currentX = e.touches[0].clientX;
-                currentY = e.touches[0].clientY;
-            } else {
-                currentX = e.clientX;
-                currentY = e.clientY;
-            }
+    // 拖曳功能 (支援手機/電腦)
+    let isDragging = false;
+    let startX, startY, initialLeft, initialTop;
 
-            const dx = currentX - startX;
-            const dy = currentY - startY;
+    const dragStart = (e) => {
+        isDragging = true;
+        startX = (e.type === 'touchstart') ? e.touches[0].clientX : e.clientX;
+        startY = (e.type === 'touchstart') ? e.touches[0].clientY : e.clientY;
+        initialLeft = lipOverlay.offsetLeft;
+        initialTop = lipOverlay.offsetTop;
+        if(e.cancelable && e.type === 'touchstart') e.preventDefault();
+    };
 
-            lipOverlay.style.left = `${initialLeft + dx}px`;
-            lipOverlay.style.top = `${initialTop + dy}px`;
-            
-            e.preventDefault(); 
-        }
+    const dragMove = (e) => {
+        if (!isDragging) return;
+        const currentX = (e.type === 'touchmove') ? e.touches[0].clientX : e.clientX;
+        const currentY = (e.type === 'touchmove') ? e.touches[0].clientY : e.clientY;
+        lipOverlay.style.left = `${initialLeft + (currentX - startX)}px`;
+        lipOverlay.style.top = `${initialTop + (currentY - startY)}px`;
+        if(e.cancelable) e.preventDefault();
+    };
 
-        function dragEnd() {
-            isDragging = false;
-        }
-    </script>
+    const dragEnd = () => { isDragging = false; };
+
+    lipOverlay.addEventListener('mousedown', dragStart);
+    lipOverlay.addEventListener('touchstart', dragStart, {passive: false});
+    window.addEventListener('mousemove', dragMove);
+    window.addEventListener('touchmove', dragMove, {passive: false});
+    window.addEventListener('mouseup', dragEnd);
+    window.addEventListener('touchend', dragEnd);
+
+
+    /* ====================
+       2. 預約系統邏輯
+       ==================== */
+    // 日期限制 (今天~30天)
+    const dateInput = document.getElementById('bookDate');
+    const today = new Date();
+    const maxDate = new Date();
+    maxDate.setDate(today.getDate() + 30);
+    
+    function formatDate(date) {
+        let d = new Date(date), month = '' + (d.getMonth() + 1), day = '' + d.getDate(), year = d.getFullYear();
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+        return [year, month, day].join('-');
+    }
+    dateInput.min = formatDate(today);
+    dateInput.max = formatDate(maxDate);
+
+    // 時段生成
+    const timeSelect = document.getElementById('bookTime');
+    ["10:00", "12:00", "14:00", "16:00", "18:00", "20:00"].forEach(t => {
+        let opt = document.createElement('option'); opt.value = t; opt.innerText = t;
+        timeSelect.appendChild(opt);
+    });
+
+    // 優惠代碼 Yuki
+    document.getElementById('promoCode').addEventListener('input', function() {
+        document.getElementById('promoMessage').style.display = 
+            (this.value.trim().toLowerCase() === 'yuki') ? 'block' : 'none';
+    });
+
+    // Modal 開關
+    const modal = document.getElementById("bookingModal");
+    const closeSpan = document.getElementsByClassName("close")[0];
+    document.getElementById("openModalBtn").onclick = () => modal.style.display = "block";
+    closeSpan.onclick = () => modal.style.display = "none";
+    window.onclick = (e) => { if (e.target == modal) modal.style.display = "none"; };
+
+    // 送出表單 (Mailto)
+    document.getElementById('bookingForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const name = document.getElementById('name').value;
+        const phone = document.getElementById('phone').value;
+        const date = document.getElementById('bookDate').value;
+        const time = document.getElementById('bookTime').value;
+        const promo = document.getElementById('promoCode').value;
+        
+        const promoText = (promo.trim().toLowerCase() === 'yuki') ? "【已使用 Yuki 優惠】" : "無";
+        const emails = "a911097777@gmail.com,wenheny831@gmail.com";
+        const subject = `預約：${name} - ${date} ${time}`;
+        const body = `姓名：${name}\n電話：${phone}\n日期：${date} ${time}\n優惠狀態：${promoText}`;
+
+        window.location.href = `mailto:${emails}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        modal.style.display = "none";
+    });
+  </script>
 </body>
 </html>
