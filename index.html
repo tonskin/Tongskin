@@ -1,292 +1,559 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 <head>
-  <meta charset="UTF-8">
-  <title>原彤Skin | 專屬霧唇美學</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary-purple: #7a6f8a;
-      --light-purple: #a790b8;
-      --bg-color: #f8fafc;
-      --white: #ffffff;
-      --accent-pink: #E59595;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yuki Aesthetic | 專屬霧唇美學</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #B08484; /* 柔瑰粉 */
+            --secondary-color: #F5E6E6; /* 淺粉底色 */
+            --text-color: #4A4A4A;
+            --accent-color: #8E5E5E;
+            --white: #ffffff;
+        }
 
-    body {
-      font-family: "Noto Sans TC", Arial, sans-serif;
-      background: var(--bg-color);
-      color: #444;
-      margin: 0;
-      padding: 0;
-      line-height: 1.6;
-    }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    /* --- Header --- */
-    header {
-      text-align: center;
-      padding: 55px 20px 40px 20px;
-      background: var(--white);
-      border-bottom: 1px solid #eee;
-    }
-    .hero-img {
-      width: 130px; height: 130px; margin: 0 auto 20px auto;
-      border-radius: 50%; 
-      box-shadow: 0 4px 20px #d2cce3;
-      object-fit: cover;
-      display: block;
-      border: 3px solid #fff;
-    }
-    h1 { 
-      font-family: 'Noto Serif TC', serif;
-      font-size: 2.2em; 
-      letter-spacing: .1em; 
-      margin-bottom: 0.2em; 
-      color: #333;
-    }
-    .tagline { font-size: 1.1em; color: var(--primary-purple); margin-bottom: 25px; }
-    
-    /* --- Button --- */
-    .cta-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 12px;
-    }
-    .cta {
-      display: inline-block;
-      background: var(--primary-purple); color: #fff;
-      font-size: 1.1em; padding: 12px 45px;
-      border-radius: 50px; border: none; 
-      box-shadow: 0 4px 15px rgba(122, 111, 138, 0.4);
-      text-decoration: none; transition: all 0.3s;
-      cursor: pointer;
-    }
-    .cta:hover { background: #685d7a; transform: translateY(-2px); }
-    
-    .promo-code {
-        font-size: 0.9em;
-        color: var(--light-purple);
-        background: #f4f0f9;
-        padding: 6px 18px;
-        border-radius: 20px;
-        border: 1px dashed var(--light-purple);
-    }
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
+            background-color: #FAFAFA;
+        }
 
-    /* --- Section --- */
-    section {
-      max-width: 800px;
-      margin: 40px auto;
-      background: var(--white);
-      padding: 40px 30px;
-      box-shadow: 0 8px 30px rgba(223, 216, 236, 0.4);
-      border-radius: 20px;
-    }
-    h2 { 
-      font-family: 'Noto Serif TC', serif;
-      font-size: 1.6em; 
-      color: var(--primary-purple); 
-      margin-top: 0; 
-      border-bottom: 2px solid #f4f4fa; 
-      padding-bottom: 15px; 
-      margin-bottom: 25px;
-      text-align: center;
-    }
+        h1, h2, h3 {
+            font-family: 'Noto Serif TC', serif;
+            letter-spacing: 0.1em;
+        }
 
-    /* --- Portfolio --- */
-    .media-row { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-bottom: 28px;}
-    .portfolio-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
-    .portfolio-img {
-      width: 150px; height: 150px; border-radius: 10px;
-      box-shadow: 0 2px 8px #e0dde7; object-fit: cover;
-    }
+        /* --- Header --- */
+        header {
+            background-color: var(--white);
+            padding: 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
 
-    /* --- Virtual Try-On --- */
-    #try-on-app {
-        text-align: center;
-        background: #fffafa; 
-        border: 2px dashed var(--light-purple);
-    }
-    .app-container {
-        max-width: 450px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    }
-    .preview-box {
-        width: 100%; height: 320px; background-color: #f0f0f0; border-radius: 10px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 1px solid #ddd;
-    }
-    #user-photo { width: 100%; height: 100%; object-fit: cover; }
-    #upload-hint { color: #999; font-weight: 500; pointer-events: none; }
-    #photo-input { position: absolute; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 10; }
-    
-    .lip-overlay {
-        position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
-        width: 100px; height: 50px; 
-        pointer-events: none; 
-        display: none; 
-        mix-blend-mode: multiply; 
-        opacity: 0.7;
-    }
-    .lip-overlay svg { width: 100%; height: 100%; fill: #E59595; filter: blur(4px); }
-    
-    .controls { margin-top: 25px; }
-    .color-palette { display: flex; justify-content: center; gap: 15px; margin-bottom: 25px; }
-    .color-btn {
-        width: 40px; height: 40px; border-radius: 50%; cursor: pointer; border: 3px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.15); transition: transform 0.2s;
-    }
-    .color-btn:hover { transform: scale(1.15); }
-    .slider-group {
-        display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; font-size: 0.9em; color: #666;
-    }
-    .slider-group input { width: 65%; accent-color: var(--primary-purple); }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--accent-color);
+        }
 
-    /* --- Menu & FAQ --- */
-    .service-list { list-style: none; padding: 0; }
-    .service-list li { 
-        margin-bottom: 20px; 
-        border-bottom: 1px dashed #eee; 
-        padding-bottom: 15px;
-        display: flex;
-        justify-content: space-between;
-        align-items: baseline;
-    }
-    .service-name { font-weight: 500; font-size: 1.1em; color: #333; }
-    .price { color: var(--primary-purple); font-weight: bold; font-family: 'Noto Serif TC', serif; font-size: 1.15em; }
-    
-    .package-block {
-        background-color: #fbf9fc;
-        padding: 25px;
-        border-radius: 12px;
-        border: 1px solid #efeef5;
-        margin-top: 30px;
-    }
-    .package-title {
-        color: var(--light-purple);
-        font-weight: bold;
-        margin-bottom: 20px;
-        display: block;
-        text-align: center;
-        letter-spacing: 1px;
-    }
-    .add-on {
-        text-align: center;
-        margin-top: 25px;
-        padding: 15px;
-        background: #f4f4fa;
-        color: #666;
-        border-radius: 8px;
-        font-size: 0.95em;
-    }
+        /* --- Hero Section --- */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1587776076633-120420533915?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'); /* 示意圖 */
+            background-size: cover;
+            background-position: center;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            padding: 20px;
+        }
 
-    .faq-list { list-style: none; padding: 0; }
-    .faq-list li { margin-bottom: 20px; background: #fcfcfc; padding: 20px; border-radius: 10px; border-left: 4px solid var(--light-purple); }
-    .faq-title { font-weight: bold; color: var(--primary-purple); margin-bottom: 8px; display: block; font-size: 1.05em; }
+        .hero h1 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
 
-    footer {
-      text-align: center; padding: 40px 20px; background: #333; color: #aaa; font-size: 0.85em;
-    }
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
 
-    /* --- Modal --- */
-    .modal {
-        display: none; 
-        position: fixed; 
-        z-index: 1000; 
-        left: 0; top: 0; 
-        width: 100%; height: 100%; 
-        overflow: auto; 
-        background-color: rgba(0,0,0,0.6); 
-        backdrop-filter: blur(4px);
-    }
-    .modal-content {
-        background-color: #fff;
-        margin: 5% auto;
-        padding: 30px;
-        border: 1px solid #888;
-        width: 90%; max-width: 500px;
-        border-radius: 16px;
-        position: relative;
-        animation: slideUp 0.4s ease;
-    }
-    @keyframes slideUp { from {transform: translateY(50px); opacity: 0;} to {transform: translateY(0); opacity: 1;} }
-    .close { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
-    .close:hover { color: #000; }
-    
-    .form-group { margin-bottom: 15px; text-align: left; }
-    .form-group label { display: block; margin-bottom: 6px; font-weight: 500; color: var(--primary-purple); font-size: 0.95em; }
-    .form-group input, .form-group select, .form-group textarea {
-        width: 100%; padding: 12px;
-        border: 1px solid #ddd; border-radius: 8px;
-        font-family: inherit; font-size: 1em;
-        background: #fafafa;
-    }
-    .form-group textarea::placeholder { color: #aaa; font-style: italic; font-size: 0.9em; }
-    #promoMessage { display: none; color: #28a745; font-size: 0.9em; margin-top: 5px; font-weight: bold; }
+        /* --- Story Section --- */
+        .section {
+            padding: 60px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
 
-    @media(max-width: 720px){
-      section {padding: 24px 16px; margin-top: 20px;}
-      .media-row iframe { width: 100%; }
-      .service-list li { flex-direction: column; align-items: flex-start; }
-      .price { margin-top: 5px; }
-    }
-  </style>
+        .story {
+            text-align: center;
+        }
+
+        .story h2 {
+            color: var(--accent-color);
+            margin-bottom: 30px;
+        }
+
+        .story-content {
+            text-align: left;
+            background: var(--white);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+
+        /* --- Pricing Section --- */
+        .pricing {
+            background-color: var(--secondary-color);
+        }
+
+        .price-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            border: 1px solid #eee;
+            transition: transform 0.3s;
+        }
+
+        .price-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(176, 132, 132, 0.2);
+        }
+
+        .price-item {
+            border-bottom: 1px dashed #ddd;
+            padding: 15px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .price-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-name {
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .item-desc {
+            font-size: 0.85rem;
+            color: #888;
+            display: block;
+            text-align: left;
+            margin-top: 5px;
+        }
+
+        .item-price {
+            color: var(--accent-color);
+            font-weight: 600;
+            font-family: 'Noto Serif TC', serif;
+        }
+
+        .package-box {
+            background-color: #fff0f0;
+            border: 1px solid var(--primary-color);
+            margin-top: 30px;
+        }
+
+        .add-on {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #666;
+            background: rgba(255,255,255,0.5);
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        /* --- Booking Button & Modal --- */
+        .float-btn-container {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: var(--white);
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(142, 94, 94, 0.4);
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-color);
+            transform: scale(1.05);
+        }
+
+        .promo-hint {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: var(--accent-color);
+        }
+
+        /* --- Modal Styles --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6);
+            backdrop-filter: blur(3px);
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            margin: 5% auto;
+            padding: 30px;
+            border: 1px solid #888;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 15px;
+            position: relative;
+            animation: slideUp 0.4s ease;
+        }
+
+        @keyframes slideUp {
+            from {transform: translateY(50px); opacity: 0;}
+            to {transform: translateY(0); opacity: 1;}
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: var(--accent-color);
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+        }
+
+        .form-group textarea::placeholder {
+            color: #aaa;
+            font-style: italic;
+            font-size: 0.9rem;
+        }
+
+        #promoMessage {
+            display: none;
+            color: green;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: #333;
+            color: #ccc;
+            font-size: 0.8rem;
+        }
+
+    </style>
 </head>
 <body>
 
-  <header>
-    <img src="logo1.JPG" alt="原彤skin logo" class="hero-img">
-    
-    <h1>原彤Skin</h1>
-    <div class="tagline">為自己而改變，找回素顏的自信光采</div>
-    
-    <div class="cta-container">
-        <button id="openModalBtn" class="cta">立即諮詢 / 預約</button>
-        <span class="promo-code">複製優惠代碼：<strong>Yuki</strong> (享專屬小禮物)</span>
+<header>
+    <div class="logo">Yuki Aesthetic 霧唇美學</div>
+</header>
+
+<section class="hero">
+    <div>
+        <h1>為自己而改變</h1>
+        <p>最好的時機，就是現在。找回素顏的自信光采。</p>
     </div>
-  </header>
+</section>
 
-  <section>
-    <h2>Brand Story 品牌故事</h2>
-    <p style="line-height: 1.8; text-align: justify; color: #555;">
-      「為自己而改變，最好的時機就是現在。」<br><br>
-      帶著素顏自信的初衷，我離開了店長的職稱，選擇歸零，專注於幫助每個女人找到屬於自己的自信色彩。<br>
-      以前我管理店務，現在我管理細節。這一次，我只為自己而活，也為妳的自信而堅持。<br><br>
-      <em>歡迎來到原彤Skin，讓我為妳找到專屬的自信色彩。</em>
-    </p>
-  </section>
-
-  <section>
-    <h2>Portfolio 作品集</h2>
-    
-    <div class="media-row">
-       <div style="background:#eee; width:100%; height:200px; display:flex; align-items:center; justify-content:center; color:#999; border-radius:10px;">
-           (這裡可放置 IG Reels 嵌入碼)
-       </div>
+<section class="section story">
+    <h2>About Yuki</h2>
+    <div class="story-content">
+        <p>我是 77 年次的 Yuki，曾是一名資深店長。</p>
+        <br>
+        <p>在過去的管理職涯中，我學會了傾聽與對細節的極致要求。但我心裡始終有一個聲音：「我還能不能為自己活得更精彩？」</p>
+        <br>
+        <p>幾個月前，我選擇歸零，全職投入霧唇美學。從前我管理團隊，現在我管理細節。霧唇，不只是改變顏色，而是讓人素顏也能擁有好氣色。</p>
+        <br>
+        <p><strong>為自己而改變，這是我做過最勇敢的投資。期待也能為妳找到專屬的自信。</strong></p>
     </div>
+</section>
+
+<section class="section pricing">
+    <h2 style="text-align: center; margin-bottom: 30px; color: var(--accent-color);">Service Menu</h2>
     
-    <div class="portfolio-row">
-      <img src="p1.jpg" class="portfolio-img">
-      
-      <img src="p2.jpg" class="portfolio-img">
-      
-      <img src="p3.jpg" class="portfolio-img">
+    <div class="price-card">
+        <h3 style="margin-bottom: 20px;">✦ 唇部美學訂製</h3>
+        
+        <div class="price-item">
+            <div>
+                <div class="item-name">唇色還原</div>
+                <span class="item-desc">改善暗沉，還原粉嫩氣色</span>
+            </div>
+            <div class="item-price">NT$ 7,980</div>
+        </div>
+
+        <div class="price-item">
+            <div>
+                <div class="item-name">唇淡色</div>
+                <span class="item-desc">針對烏唇、色素沉澱調整</span>
+            </div>
+            <div class="item-price">NT$ 3,490</div>
+        </div>
+
+        <div class="price-item">
+            <div>
+                <div class="item-name">唇氧護</div>
+                <span class="item-desc">深層滋養，修護乾燥唇紋</span>
+            </div>
+            <div class="item-price">NT$ 1,980</div>
+        </div>
     </div>
+
+    <div class="price-card package-box">
+        <h3 style="margin-bottom: 20px;">✦ 專屬包套方案</h3>
+        
+        <div class="price-item">
+            <div>
+                <div class="item-name">淡色包套 (3堂)</div>
+                <span class="item-desc">循序漸進，打造透亮裸唇</span>
+            </div>
+            <div class="item-price">NT$ 8,490</div>
+        </div>
+
+        <div class="price-item">
+            <div>
+                <div class="item-name">唇色還原套組</div>
+                <span class="item-desc">含：霧唇 x1 + 淡色 x1</span>
+            </div>
+            <div class="item-price">NT$ 9,450</div>
+        </div>
+    </div>
+
+    <div class="add-on" style="text-align: center;">
+        * 以上課程皆可加購 <strong>唇氧課程 $990</strong>
+    </div>
+</section>
+
+<section class="section" style="text-align: center;">
+    <h2>Reservation</h2>
+    <p style="margin-bottom: 20px;">每天 00:00 開放未來 30 天預約</p>
     
-    <p style="margin-top:20px; text-align: center;">
-      更多作品歡迎追蹤 <a href="https://www.instagram.com/tong.skin" target="_blank" style="color:var(--primary-purple); font-weight:bold; text-decoration:none;">@tong.skin</a>
-    </p>
-  </section>
+    <div class="float-btn-container">
+        <button id="openModalBtn" class="btn-primary">立即預約變美</button>
+        <div class="promo-hint">
+            輸入優惠碼 <strong>Yuki</strong> 現場領取小禮物 ✨
+        </div>
+    </div>
+</section>
 
-  <section id="try-on-app">
-    <h2>Virtual Try-On<br><span style="font-size:0.65em; color:var(--light-purple); font-weight:normal;">線上唇色模擬體驗</span></h2>
-    <p style="text-align:center; margin-bottom:25px; font-size:0.95em; color:#666;">
-        上傳照片 ➤ 調整唇型位置 ➤ 挑選顏色<br>
-        <small>*模擬僅供參考，實際成色以現場諮詢為主</small>
-    </p>
+<div id="bookingModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3 style="text-align: center; margin-bottom: 20px; color: var(--accent-color);">預約資料填寫</h3>
+        
+        <form id="bookingForm">
+            <div class="form-group">
+                <label>姓名 Name</label>
+                <input type="text" id="name" required>
+            </div>
 
-    <div class="app-container">
-        <div class="preview-box">
-            <p id="upload-hint">📷 點此上傳一張正臉照</p>
-            <img id="user-photo" src="" style="display:none;">
-            
-            <div id="lip-mask" class="lip-overlay">
-                <svg viewBox="0 0 200 100" preserveAspectRatio="none">
-                    <path d="M10,40 Q50,60 100,40 Q150,60 190,40 Q150,80 100,90 Q50,80
+            <div class="form-group">
+                <label>電話 Phone</label>
+                <input type="tel" id="phone" required>
+            </div>
+
+            <div class="form-group">
+                <label>生日 Birthday</label>
+                <input type="date" id="birthday" required>
+            </div>
+
+            <div class="form-group">
+                <label>性別 Gender</label>
+                <select id="gender">
+                    <option value="女">女</option>
+                    <option value="男">男</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>預約日期 Date</label>
+                <input type="date" id="bookDate" required>
+            </div>
+
+            <div class="form-group">
+                <label>預約時段 Time</label>
+                <select id="bookTime" required>
+                    </select>
+            </div>
+
+            <div class="form-group">
+                <label>參加內容 / 備註</label>
+                <textarea id="content" rows="3" placeholder="水水們，哪裡想變美美的...（可留白，現場諮詢）"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>優惠代碼 Promo Code</label>
+                <input type="text" id="promoCode" placeholder="輸入 Yuki 領取小禮物">
+                <div id="promoMessage">🎉 優惠代碼有效！現場贈送精美小禮物！</div>
+            </div>
+
+            <button type="submit" class="btn-primary" style="width: 100%;">確認預約 (送出信件)</button>
+            <p style="font-size: 0.8rem; color: #999; margin-top: 10px; text-align: center;">*按下確認後將自動開啟您的郵件軟體</p>
+        </form>
+    </div>
+</div>
+
+<footer>
+    &copy; 2025 Yuki Aesthetic. All rights reserved.<br>
+    Designed for You.
+</footer>
+
+<script>
+    // 1. 設定日期範圍 (Today ~ Today + 30 days)
+    const dateInput = document.getElementById('bookDate');
+    const today = new Date();
+    const maxDate = new Date();
+    maxDate.setDate(today.getDate() + 30);
+
+    // 格式化日期為 YYYY-MM-DD
+    function formatDate(date) {
+        let d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+        return [year, month, day].join('-');
+    }
+
+    dateInput.min = formatDate(today);
+    dateInput.max = formatDate(maxDate);
+
+    // 2. 設定時段 (10:00 - 20:00, 每2小時)
+    const timeSelect = document.getElementById('bookTime');
+    const timeSlots = ["10:00", "12:00", "14:00", "16:00", "18:00", "20:00"];
+    
+    timeSlots.forEach(time => {
+        let option = document.createElement('option');
+        option.value = time;
+        option.text = time;
+        timeSelect.appendChild(option);
+    });
+
+    // 3. 模態框 (Modal) 控制
+    const modal = document.getElementById("bookingModal");
+    const btn = document.getElementById("openModalBtn");
+    const span = document.getElementsByClassName("close")[0];
+
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    // 4. 優惠代碼邏輯
+    const promoInput = document.getElementById('promoCode');
+    const promoMsg = document.getElementById('promoMessage');
+
+    promoInput.addEventListener('input', function() {
+        if (this.value.trim().toLowerCase() === 'yuki') {
+            promoMsg.style.display = 'block';
+        } else {
+            promoMsg.style.display = 'none';
+        }
+    });
+
+    // 5. 表單送出邏輯 (Mailto 生成器)
+    document.getElementById('bookingForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // 收集資料
+        const name = document.getElementById('name').value;
+        const phone = document.getElementById('phone').value;
+        const birthday = document.getElementById('birthday').value;
+        const gender = document.getElementById('gender').value;
+        const date = document.getElementById('bookDate').value;
+        const time = document.getElementById('bookTime').value;
+        const content = document.getElementById('content').value;
+        const promo = document.getElementById('promoCode').value;
+        
+        let promoStatus = "無";
+        if(promo.trim().toLowerCase() === 'yuki') {
+            promoStatus = "【Yuki 優惠 - 需準備小禮物🎁】";
+        }
+
+        // 收件信箱
+        const emails = "a911097777@gmail.com,wenheny831@gmail.com";
+        
+        // 信件標題
+        const subject = `【新預約通知】${name} - ${date} ${time}`;
+        
+        // 信件內容
+        const body = `
+----------------------------------------
+   Yuki Aesthetic 新預約通知
+----------------------------------------
+
+👤 姓名：${name}
+📞 電話：${phone}
+🎂 生日：${birthday}
+⚧ 性別：${gender}
+
+📅 預約日期：${date}
+⏰ 預約時段：${time}
+
+📝 需求備註：
+${content}
+
+🎁 優惠代碼：${promoStatus}
+
+----------------------------------------
+系統自動生成，請儘速回覆客人確認。
+        `;
+
+        // 生成 mailto連結並開啟
+        window.location.href = `mailto:${emails}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        
+        // 關閉視窗並提示
+        modal.style.display = "none";
+        alert("正在開啟您的郵件軟體，請按下「傳送」以完成預約！\n若無法開啟，請截圖傳給 Yuki，謝謝！");
+    });
+</script>
+
+</body>
+</html>
