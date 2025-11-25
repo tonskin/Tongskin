@@ -1,462 +1,335 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 <head>
-  <meta charset="UTF-8">
-  <title>原彤Skin | Restore your beauty</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary-purple: #7a6f8a;
-      --light-purple: #a790b8;
-      --bg-color: #f8fafc;
-      --white: #ffffff;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>霧唇專屬模擬 | 原彤Skin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        /* --- 全局設定 --- */
+        :root {
+            --primary-color: #D98E7E; /* 蜜桃主色 */
+            --text-color: #444;
+            --bg-color: #f9f9f9;
+        }
 
-    body {
-      font-family: "Noto Sans TC", Arial, sans-serif;
-      background: var(--bg-color);
-      color: #444;
-      margin: 0;
-      padding: 0;
-      line-height: 1.6;
-    }
+        body {
+            font-family: "Noto Sans TC", Helvetica, Arial, sans-serif;
+            margin: 0; padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding-bottom: 80px; /* 預留底部空間給預約按鈕 */
+        }
 
-    /* --- Header --- */
-    header {
-      text-align: center;
-      padding: 55px 20px 40px 20px;
-      background: var(--white);
-      border-bottom: 1px solid #eee;
-    }
-    .hero-img {
-      width: 120px; height: auto; margin: 0 auto 20px auto;
-      border-radius: 50%; box-shadow: 0 4px 20px #d2cce3;
-      object-fit: cover;
-      display: block;
-    }
-    h1 { 
-      font-family: 'Noto Serif TC', serif;
-      font-size: 2.2em; 
-      letter-spacing: .1em; 
-      margin-bottom: 0.2em; 
-      color: #333;
-    }
-    .tagline { font-size: 1.1em; color: var(--primary-purple); margin-bottom: 25px; }
-    
-    /* --- Booking Button --- */
-    .cta-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-    }
-    .cta {
-      display: inline-block;
-      background: var(--primary-purple); color: #fff;
-      font-size: 1.1em; padding: 12px 40px;
-      border-radius: 50px; border: none; margin-top: 10px;
-      box-shadow: 0 4px 15px rgba(122, 111, 138, 0.4);
-      text-decoration: none; transition: all 0.3s;
-      cursor: pointer;
-    }
-    .cta:hover { background: #685d7a; transform: translateY(-2px); }
-    
-    .promo-code {
-        font-size: 0.9em;
-        color: var(--light-purple);
-        background: #f4f0f9;
-        padding: 5px 15px;
-        border-radius: 15px;
-        border: 1px dashed var(--light-purple);
-    }
+        /* --- Header --- */
+        header {
+            background: #fff;
+            padding: 15px 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky; top: 0; z-index: 100;
+        }
+        .logo {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 24px; font-weight: bold; color: #444;
+            letter-spacing: 1px;
+        }
 
-    /* --- Sections --- */
-    section {
-      max-width: 800px;
-      margin: 40px auto;
-      background: var(--white);
-      padding: 40px 30px;
-      box-shadow: 0 8px 30px rgba(223, 216, 236, 0.4);
-      border-radius: 20px;
-    }
-    h2 { 
-      font-family: 'Noto Serif TC', serif;
-      font-size: 1.6em; 
-      color: var(--primary-purple); 
-      margin-top: 0; 
-      border-bottom: 2px solid #f4f4fa; 
-      padding-bottom: 15px; 
-      margin-bottom: 25px;
-      text-align: center;
-    }
+        /* --- 模擬器核心區塊 --- */
+        .simulator-container {
+            max-width: 480px;
+            margin: 20px auto;
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
 
-    /* --- Portfolio --- */
-    .media-row { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-bottom: 28px;}
-    .portfolio-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
-    .portfolio-img {
-      width: 150px; height: 150px; border-radius: 10px;
-      box-shadow: 0 2px 8px #e0dde7; object-fit: cover;
-    }
+        .photo-area {
+            position: relative;
+            width: 100%; height: 400px;
+            background-color: #eee;
+            /* 預設背景圖，請換成您的範例圖 */
+            background-image: url('https://placehold.co/400x500/png?text=點擊上傳照片'); 
+            background-size: cover; background-position: center;
+            display: flex; align-items: flex-end; justify-content: center;
+            overflow: hidden;
+        }
 
-    /* --- Price List --- */
-    .service-list { list-style: none; padding: 0; }
-    .service-list li { 
-        margin-bottom: 20px; 
-        border-bottom: 1px dashed #eee; 
-        padding-bottom: 15px;
-        display: flex;
-        justify-content: space-between;
-        align-items: baseline;
-    }
-    .service-name { font-weight: 500; font-size: 1.1em; color: #333; }
-    .price { color: var(--primary-purple); font-weight: bold; font-family: 'Noto Serif TC', serif; font-size: 1.1em; }
-    .package-block {
-        background-color: #fdfafd;
-        padding: 20px;
-        border-radius: 10px;
-        border: 1px solid #efeef5;
-        margin-top: 30px;
-    }
-    .package-title {
-        color: var(--light-purple);
-        font-weight: bold;
-        margin-bottom: 15px;
-        display: block;
-        text-align: center;
-    }
-    .add-on {
-        text-align: center;
-        margin-top: 25px;
-        padding: 10px;
-        background: #f4f4fa;
-        color: #666;
-        border-radius: 8px;
-        font-size: 0.95em;
-    }
+        /* 實際上傳 input 隱藏 */
+        #uploadInput { display: none; }
+        .upload-hint {
+            position: absolute; top: 10px; right: 10px;
+            background: rgba(255,255,255,0.8); padding: 5px 10px;
+            border-radius: 20px; font-size: 12px; cursor: pointer;
+            z-index: 10;
+        }
 
-    /* --- FAQ --- */
-    .faq-list { list-style: none; padding: 0; }
-    .faq-list li { margin-bottom: 20px; background: #fcfcfc; padding: 20px; border-radius: 10px; border-left: 4px solid var(--light-purple); }
-    .faq-title { font-weight: bold; color: var(--primary-purple); margin-bottom: 8px; display: block; font-size: 1.05em; }
+        .lip-overlay {
+            position: absolute;
+            top: 55%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px; height: 40px;
+            background-color: transparent;
+            border-radius: 50%;
+            filter: blur(12px); /* 霧感關鍵 */
+            mix-blend-mode: multiply;
+            opacity: 0.6;
+            pointer-events: auto; /* 允許拖動 */
+            cursor: move;
+        }
 
-    /* --- Footer --- */
-    footer {
-      text-align: center; padding: 40px 20px; background: #333; color: #aaa; font-size: 0.85em;
-    }
+        .compare-btn {
+            position: absolute; bottom: 20px;
+            background: rgba(0, 0, 0, 0.6); color: #fff;
+            padding: 8px 16px; border-radius: 30px;
+            font-size: 14px; cursor: pointer;
+            backdrop-filter: blur(4px);
+            user-select: none;
+        }
 
-    /* --- Modal (Popup) Styles --- */
-    .modal {
-        display: none; 
-        position: fixed; 
-        z-index: 1000; 
-        left: 0; top: 0; 
-        width: 100%; height: 100%; 
-        overflow: auto; 
-        background-color: rgba(0,0,0,0.6); 
-        backdrop-filter: blur(4px);
-    }
-    .modal-content {
-        background-color: #fff;
-        margin: 5% auto;
-        padding: 30px;
-        border: 1px solid #888;
-        width: 90%; max-width: 500px;
-        border-radius: 16px;
-        position: relative;
-        animation: slideUp 0.4s ease;
-    }
-    @keyframes slideUp { from {transform: translateY(50px); opacity: 0;} to {transform: translateY(0); opacity: 1;} }
-    .close { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
-    .close:hover { color: #000; }
-    
-    .form-group { margin-bottom: 15px; text-align: left; }
-    .form-group label { display: block; margin-bottom: 6px; font-weight: 500; color: var(--primary-purple); font-size: 0.95em; }
-    .form-group input, .form-group select, .form-group textarea {
-        width: 100%; padding: 12px;
-        border: 1px solid #ddd; border-radius: 8px;
-        font-family: inherit; font-size: 1em;
-        background: #fafafa;
-    }
-    .form-group textarea::placeholder { color: #aaa; font-style: italic; font-size: 0.9em; }
-    #promoMessage { display: none; color: #5cb85c; font-size: 0.9em; margin-top: 5px; font-weight: bold; }
+        /* --- 控制面板 --- */
+        .controls { padding: 25px; text-align: center; }
+        .tag {
+            display: inline-block; background-color: #fde8e8; color: #c55a5a;
+            font-size: 12px; padding: 4px 10px; border-radius: 4px; margin-bottom: 10px;
+        }
+        h2 { margin: 5px 0 10px 0; font-size: 22px; color: #2c2c2c; font-family: 'Noto Serif TC', serif; }
+        p.slogan { margin: 0 0 25px 0; font-size: 15px; color: #666; }
 
-    @media(max-width: 720px){
-      section {padding: 24px 16px; margin-top: 20px;}
-      .media-row iframe { width: 100%; }
-      .service-list li { flex-direction: column; align-items: flex-start; }
-      .price { margin-top: 5px; }
-    }
-  </style>
+        .color-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; justify-items: center;
+        }
+        .color-btn {
+            width: 50px; height: 50px; border-radius: 50%;
+            border: 2px solid #eee; cursor: pointer;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .color-btn.active { border-color: #555; transform: scale(1.15); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        
+        /* 8色定義 */
+        .c1 { background: #D98E7E; } .c2 { background: #E6B6AD; }
+        .c3 { background: #C67C7B; } .c4 { background: #DFA98F; }
+        .c5 { background: #B86E6E; } .c6 { background: #D2A889; }
+        .c7 { background: #EA9E8D; } .c8 { background: #C06C6C; }
+
+        /* --- 作品集 --- */
+        .portfolio-section { max-width: 480px; margin: 30px auto; padding: 0 20px; }
+        .portfolio-title {
+            font-size: 18px; margin-bottom: 15px;
+            border-left: 4px solid var(--primary-color); padding-left: 10px;
+            font-family: 'Noto Serif TC', serif;
+        }
+        .portfolio-img {
+            width: 100%; border-radius: 12px; margin-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08); display: block;
+            object-fit: cover;
+        }
+
+        /* --- 懸浮預約按鈕 --- */
+        .floating-cta {
+            position: fixed; bottom: 20px; left: 50%;
+            transform: translateX(-50%);
+            background: #444; color: #fff;
+            padding: 12px 35px; border-radius: 50px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            font-size: 16px; font-weight: bold; border: none;
+            cursor: pointer; z-index: 99;
+            transition: background 0.3s;
+        }
+        .floating-cta:hover { background: #222; }
+
+        /* --- Modal 預約彈窗 (沿用上一版) --- */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); backdrop-filter: blur(4px); }
+        .modal-content { background-color: #fff; margin: 10% auto; padding: 30px; width: 85%; max-width: 400px; border-radius: 16px; animation: slideUp 0.4s ease; position: relative; }
+        @keyframes slideUp { from {transform: translateY(50px); opacity: 0;} to {transform: translateY(0); opacity: 1;} }
+        .close { float: right; font-size: 28px; cursor: pointer; color: #aaa; }
+        .form-group { margin-bottom: 15px; text-align: left; }
+        .form-group label { display: block; margin-bottom: 5px; font-size: 0.9em; color: var(--primary-color); }
+        .form-group input, .form-group select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
+        .submit-btn { width: 100%; padding: 12px; background: var(--primary-color); color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; }
+
+    </style>
 </head>
 <body>
 
-  <header>
-    <img src="https://via.placeholder.com/150x150/e0dde7/7a6f8a?text=Yuki+Skin" alt="原彤skin logo" class="hero-img">
-    
-    <h1>原彤Skin</h1>
-    <div class="tagline">為自己而改變，找回素顏的自信光采</div>
-    
-    <div class="cta-container">
-        <button id="openModalBtn" class="cta">立即諮詢 / 預約</button>
-        <span class="promo-code">複製優惠代碼：<strong>Yuki</strong> (享專屬小禮物)</span>
+    <header>
+        <div class="logo">logo1</div>
+    </header>
+
+    <div class="simulator-container">
+        <div class="photo-area" id="photoArea" onclick="document.getElementById('uploadInput').click()">
+            <div class="upload-hint">📷 上傳照片</div>
+            <input type="file" id="uploadInput" accept="image/*" onchange="loadPhoto(event)">
+            
+            <div class="lip-overlay" id="lipOverlay"></div>
+            
+            <div class="compare-btn" onmousedown="showOriginal()" onmouseup="restoreColor()" ontouchstart="showOriginal()" ontouchend="restoreColor()">
+                👁️ 長按對比原圖
+            </div>
+        </div>
+
+        <div class="controls">
+            <span class="tag">蜜桃烏龍</span>
+            <h2>模擬您的專屬唇色</h2>
+            <p class="slogan">點擊色塊切換，找到最適合妳的自信色彩</p>
+
+            <div class="color-grid">
+                <div class="color-btn c1 active" onclick="changeColor('#D98E7E', '蜜桃烏龍', this)"></div>
+                <div class="color-btn c2" onclick="changeColor('#E6B6AD', '純淨裸粉', this)"></div>
+                <div class="color-btn c3" onclick="changeColor('#C67C7B', '溫柔豆沙', this)"></div>
+                <div class="color-btn c4" onclick="changeColor('#DFA98F', '活力珊瑚', this)"></div>
+                <div class="color-btn c5" onclick="changeColor('#B86E6E', '乾燥玫瑰', this)"></div>
+                <div class="color-btn c6" onclick="changeColor('#D2A889', '泰式奶茶', this)"></div>
+                <div class="color-btn c7" onclick="changeColor('#EA9E8D', '甜心粉橘', this)"></div>
+                <div class="color-btn c8" onclick="changeColor('#C06C6C', '復古磚紅', this)"></div>
+            </div>
+        </div>
     </div>
-  </header>
 
-  <section>
-    <h2>品牌故事 Brand Story</h2>
-    <p style="line-height: 1.8; text-align: justify;">
-      帶著素顏自信的初衷，我離開了店長的職稱，選擇歸零，專注於幫助每個女人找到屬於自己的自信色彩。<br><br>
-      以前我管理店務，現在我管理細節。這一次，我只為自己而活，也為妳的自信而堅持。<br><br>
-      <em>歡迎來到原彤Skin，讓我為妳找到專屬的自信色彩。</em>
-    </p>
-  </section>
-
-  <section>
-    <h2>作品集 Portfolio</h2>
-    <div class="media-row">
-       <div style="background:#eee; width:100%; height:200px; display:flex; align-items:center; justify-content:center; color:#999; border-radius:10px;">
-           IG Reels 區塊 (請替換 iframe)
-       </div>
+    <div class="portfolio-section">
+        <h3 class="portfolio-title">精選作品集 Portfolio</h3>
+        <img src="p1.jpg" alt="作品集1" class="portfolio-img">
+        <img src="p2.jpg" alt="作品集2" class="portfolio-img">
     </div>
-    
-    <div class="portfolio-row">
-      <img src="https://via.placeholder.com/160x160/eee/999?text=Before" class="portfolio-img">
-      <img src="https://via.placeholder.com/160x160/eee/999?text=After" class="portfolio-img">
-      <img src="https://via.placeholder.com/160x160/eee/999?text=Lips" class="portfolio-img">
-    </div>
-    
-    <p style="margin-top:20px; text-align: center;">
-      更多作品歡迎追蹤 <a href="https://www.instagram.com/tong.skin" target="_blank" style="color:var(--primary-purple); font-weight:bold;">@tong.skin</a>
-    </p>
-  </section>
 
-  <section>
-    <h2>服務價目表 Service Menu</h2>
-    
-    <ul class="service-list">
-      <li>
-        <span class="service-name">唇色還原</span>
-        <span class="price">NT$ 7,980</span>
-      </li>
-      <li>
-        <span class="service-name">唇淡色</span>
-        <span class="price">NT$ 3,490</span>
-      </li>
-      <li>
-        <span class="service-name">唇氧護</span>
-        <span class="price">NT$ 1,980</span>
-      </li>
-    </ul>
+    <button class="floating-cta" onclick="openModal()">立即預約諮詢 ✨</button>
 
-    <div class="package-block">
-        <span class="package-title">✦ 專屬包套方案</span>
-        <ul class="service-list" style="margin-bottom:0;">
-            <li>
-                <div>
-                    <span class="service-name">淡色包套 (3堂)</span>
-                    <br><small style="color:#888; font-size:0.85em;">循序漸進，打造透亮裸唇</small>
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h3 style="text-align: center; color: #444;">預約諮詢</h3>
+            <form id="bookingForm">
+                <div class="form-group">
+                    <label>姓名 Name</label>
+                    <input type="text" id="name" required>
                 </div>
-                <span class="price">NT$ 8,490</span>
-            </li>
-            <li style="border-bottom:none; padding-bottom:0;">
-                <div>
-                    <span class="service-name">唇色還原套組</span>
-                    <br><small style="color:#888; font-size:0.85em;">含：霧唇 x1 + 淡色 x1</small>
+                <div class="form-group">
+                    <label>預約日期 Date</label>
+                    <input type="date" id="bookDate" required>
                 </div>
-                <span class="price">NT$ 9,450</span>
-            </li>
-        </ul>
-    </div>
-
-    <div class="add-on">
-        ★ 以上課程皆可加購 <strong>唇氧課程 $990</strong>
-    </div>
-    
-    <p style="text-align: center; margin-top: 20px; color: #999; font-size: 0.8em;">※ 實際價格以現場諮詢評估為主</p>
-  </section>
-
-  <section>
-    <h2>常見問題 FAQ</h2>
-    <ul class="faq-list">
-      <li><span class="faq-title">Q: 生理期能不能做？</span>建議避開生理期前三天與期間，以確保修復效果最佳與降低敏感度。</li>
-      <li><span class="faq-title">Q: 效果能維持多久？</span>一般可維持 1-3 年，依個人新陳代謝與保養習慣而異。</li>
-      <li><span class="faq-title">Q: 施作過程會痛嗎？</span>我們採用專業無痛技術與舒緩膏，過程僅有輕微震動感，多數客人皆可睡著。</li>
-    </ul>
-  </section>
-
-  <footer>
-    原彤Skin © 2025 | Designed for You
-  </footer>
-
-  <div id="bookingModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <h3 style="text-align: center; color: var(--primary-purple); margin-bottom: 20px;">預約資料填寫</h3>
-        
-        <form id="bookingForm">
-            <div class="form-group">
-                <label>姓名 Name</label>
-                <input type="text" id="name" required placeholder="請輸入您的姓名">
-            </div>
-
-            <div class="form-group">
-                <label>電話 Phone</label>
-                <input type="tel" id="phone" required placeholder="09xx-xxx-xxx">
-            </div>
-
-            <div class="form-group">
-                <label>生日 Birthday</label>
-                <input type="date" id="birthday" required>
-            </div>
-
-            <div class="form-group">
-                <label>性別 Gender</label>
-                <select id="gender">
-                    <option value="女">女</option>
-                    <option value="男">男</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label>預約日期 Date (僅開放近30天)</label>
-                <input type="date" id="bookDate" required>
-            </div>
-
-            <div class="form-group">
-                <label>預約時段 Time (10:00-20:00)</label>
-                <select id="bookTime" required>
+                <div class="form-group">
+                    <label>選擇項目 Service</label>
+                    <select id="service">
+                        <option>唇色還原</option>
+                        <option>唇淡色</option>
+                        <option>諮詢其他</option>
                     </select>
-            </div>
-
-            <div class="form-group">
-                <label>參加內容 / 想改善的地方</label>
-                <textarea id="content" rows="3" placeholder="水水們，哪裡想變美美的...（可留白，現場諮詢）"></textarea>
-            </div>
-
-            <div class="form-group">
-                <label>優惠代碼 Promo Code</label>
-                <input type="text" id="promoCode" placeholder="輸入 Yuki 領取小禮物">
-                <div id="promoMessage">🎉 優惠代碼有效！現場贈送精美小禮物！</div>
-            </div>
-
-            <button type="submit" class="cta" style="width: 100%; border-radius: 8px;">確認預約 (送出信件)</button>
-            <p style="font-size: 0.8rem; color: #999; margin-top: 10px; text-align: center;">*按下確認後將自動開啟您的郵件軟體</p>
-        </form>
+                </div>
+                <button type="submit" class="submit-btn">送出預約信</button>
+            </form>
+        </div>
     </div>
-  </div>
 
-  <script>
-    // --- 1. 日期範圍設定 (今天 ~ 未來30天) ---
-    const dateInput = document.getElementById('bookDate');
-    const today = new Date();
-    const maxDate = new Date();
-    maxDate.setDate(today.getDate() + 30); // 設定為30天後
+    <script>
+        // --- 1. 唇色模擬邏輯 ---
+        let currentColor = '#D98E7E';
+        const lipOverlay = document.getElementById('lipOverlay');
+        const tagText = document.querySelector('.tag');
+        const btns = document.querySelectorAll('.color-btn');
 
-    function formatDate(date) {
-        let d = new Date(date),
-            month = '' + (d.getMonth() + 1),
-            day = '' + d.getDate(),
-            year = d.getFullYear();
+        lipOverlay.style.backgroundColor = currentColor;
 
-        if (month.length < 2) month = '0' + month;
-        if (day.length < 2) day = '0' + day;
-        return [year, month, day].join('-');
-    }
-
-    dateInput.min = formatDate(today);
-    dateInput.max = formatDate(maxDate);
-
-    // --- 2. 時段生成 (10:00 - 20:00, 每2小時) ---
-    const timeSelect = document.getElementById('bookTime');
-    const timeSlots = ["10:00", "12:00", "14:00", "16:00", "18:00", "20:00"];
-    
-    timeSlots.forEach(time => {
-        let option = document.createElement('option');
-        option.value = time;
-        option.text = time;
-        timeSelect.appendChild(option);
-    });
-
-    // --- 3. 彈窗 (Modal) 控制 ---
-    const modal = document.getElementById("bookingModal");
-    const btn = document.getElementById("openModalBtn");
-    const span = document.getElementsByClassName("close")[0];
-
-    btn.onclick = function() { modal.style.display = "block"; }
-    span.onclick = function() { modal.style.display = "none"; }
-    window.onclick = function(event) {
-        if (event.target == modal) { modal.style.display = "none"; }
-    }
-
-    // --- 4. 優惠代碼邏輯 (Yuki) ---
-    const promoInput = document.getElementById('promoCode');
-    const promoMsg = document.getElementById('promoMessage');
-
-    promoInput.addEventListener('input', function() {
-        if (this.value.trim().toLowerCase() === 'yuki') {
-            promoMsg.style.display = 'block';
-        } else {
-            promoMsg.style.display = 'none';
-        }
-    });
-
-    // --- 5. 表單送出 (產生 Mailto 連結) ---
-    document.getElementById('bookingForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        // 收集資料
-        const name = document.getElementById('name').value;
-        const phone = document.getElementById('phone').value;
-        const birthday = document.getElementById('birthday').value;
-        const gender = document.getElementById('gender').value;
-        const date = document.getElementById('bookDate').value;
-        const time = document.getElementById('bookTime').value;
-        const content = document.getElementById('content').value;
-        const promo = document.getElementById('promoCode').value;
-        
-        let promoStatus = "無";
-        if(promo.trim().toLowerCase() === 'yuki') {
-            promoStatus = "【Yuki 優惠 - 需準備小禮物🎁】";
+        function changeColor(color, name, btnElement) {
+            currentColor = color;
+            lipOverlay.style.backgroundColor = color;
+            tagText.innerText = name;
+            btns.forEach(b => b.classList.remove('active'));
+            btnElement.classList.add('active');
         }
 
-        // 收件信箱設定 (自動寄給這兩個信箱)
-        const emails = "a911097777@gmail.com,wenheny831@gmail.com";
+        function showOriginal() { lipOverlay.style.opacity = '0'; }
+        function restoreColor() { lipOverlay.style.opacity = '0.6'; }
+
+        // --- 2. 照片上傳預覽功能 ---
+        function loadPhoto(event) {
+            const photoArea = document.getElementById('photoArea');
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    photoArea.style.backgroundImage = `url(${e.target.result})`;
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // --- 3. 預約彈窗邏輯 ---
+        const modal = document.getElementById("bookingModal");
+        function openModal() { modal.style.display = "block"; }
+        function closeModal() { modal.style.display = "none"; }
+        window.onclick = function(e) { if(e.target == modal) closeModal(); }
+
+        // --- 4. 預約信件發送 ---
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const date = document.getElementById('bookDate').value;
+            const service = document.getElementById('service').value;
+            
+            // 設定您的收件信箱
+            const emails = "a911097777@gmail.com,wenheny831@gmail.com";
+            const subject = `【模擬器預約】${name} - ${service}`;
+            const body = `姓名：${name}\n預約日期：${date}\n項目：${service}`;
+            
+            window.location.href = `mailto:${emails}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            closeModal();
+        });
+
+        // --- 5. 讓唇色遮罩可以拖曳 (手機/電腦通用) ---
+        let isDragging = false;
+        let startX, startY, initialLeft, initialTop;
+
+        // 觸控事件
+        lipOverlay.addEventListener('touchstart', dragStart, {passive: false});
+        lipOverlay.addEventListener('touchmove', dragMove, {passive: false});
+        lipOverlay.addEventListener('touchend', dragEnd);
         
-        // 信件標題
-        const subject = `【預約通知】${name} - ${date} ${time}`;
-        
-        // 信件內容排版
-        const body = `
-----------------------------------------
-   原彤Skin - 新客戶預約單
-----------------------------------------
+        // 滑鼠事件
+        lipOverlay.addEventListener('mousedown', dragStart);
+        window.addEventListener('mousemove', dragMove);
+        window.addEventListener('mouseup', dragEnd);
 
-👤 姓名：${name}
-📞 電話：${phone}
-🎂 生日：${birthday}
-⚧ 性別：${gender}
+        function dragStart(e) {
+            if (e.type === 'touchstart') {
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+            } else {
+                startX = e.clientX;
+                startY = e.clientY;
+            }
+            isDragging = true;
+            const rect = lipOverlay.getBoundingClientRect();
+            // 記錄相對於 parent 的位置
+            initialLeft = lipOverlay.offsetLeft;
+            initialTop = lipOverlay.offsetTop;
+            e.preventDefault(); // 防止滾動
+        }
 
-📅 預約日期：${date}
-⏰ 預約時段：${time}
+        function dragMove(e) {
+            if (!isDragging) return;
+            let currentX, currentY;
+            
+            if (e.type === 'touchmove') {
+                currentX = e.touches[0].clientX;
+                currentY = e.touches[0].clientY;
+            } else {
+                currentX = e.clientX;
+                currentY = e.clientY;
+            }
 
-📝 想變美的地方/備註：
-${content}
+            const dx = currentX - startX;
+            const dy = currentY - startY;
 
-🎁 優惠代碼狀態：${promoStatus}
+            lipOverlay.style.left = `${initialLeft + dx}px`;
+            lipOverlay.style.top = `${initialTop + dy}px`;
+            
+            e.preventDefault(); 
+        }
 
-----------------------------------------
-(此信件由官網預約系統自動生成)
-        `;
-
-        // 執行 mailto (開啟郵件軟體)
-        window.location.href = `mailto:${emails}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-        
-        // 關閉視窗並提示
-        modal.style.display = "none";
-        alert("已為您建立預約信件！\n\n請按下郵件軟體的「傳送」按鈕，我們收到信後會盡快與您聯繫確認。");
-    });
-  </script>
+        function dragEnd() {
+            isDragging = false;
+        }
+    </script>
 </body>
 </html>
-
