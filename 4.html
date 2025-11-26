@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智慧比價機器人</title>
+    <!-- 載入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 載入 Google Font (Inter) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- 載入 Lucide 圖示庫 -->
+    <script src="https://unpkg.com/lucide-react@0.378.0/dist/umd/lucide.min.js"></script>
+    <style>
+        /* 使用 Inter 字體 */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* 簡單的載入中旋轉動畫 */
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* 讓檔案上傳按鈕美觀一點 */
+        input[type="file"]::file-selector-button {
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            background-color: #3b82f6; /* bg-blue-600 */
+            color: white;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        input[type="file"]::file-selector-button:hover {
+            background-color: #2563eb; /* bg-blue-700 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen p-4 md:p-8">
+    <div class="max-w-4xl mx-auto">
+
+        <!-- 標題 -->
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-800 flex items-center justify-center space-x-3">
+                <i data-lucide="scan-search"></i>
+                <span>智慧比價機器人</span>
+            </h1>
+            <p class="text-gray-600 mt-2">幫您尋找低於市場價格的商品</p>
+        </header>
+
+        <!-- 新增追蹤項目 -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-2xl font-semibold text-gray-700 mb-4">新增追蹤項目</h2>
+            <div class="space-y-4">
+                <div>
+                    <label for="product-name" class="block text-sm font-medium text-gray-700">產品名稱 (文字或圖片擇一)</label>
+                    <input type="text" id="product-name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                </div>
+                
+                <div class="flex items-center justify-center text-gray-500 my-2">
+                    <span class="border-t flex-grow"></span>
+                    <span class="px-3 text-sm">或</span>
+                    <span class="border-t flex-grow"></span>
+                </div>
+
+                <div>
+                    <label for="image-upload" class="block text-sm font-medium text-gray-700">上傳產品圖片</label>
+                    <input type="file" id="image-upload" accept="image/*" class="mt-1 block w-full text-sm text-gray-500 file:mr-4">
+                    <img id="image-preview" src="" alt="圖片預覽" class="mt-2 rounded-md max-h-40 hidden shadow-sm">
+                </div>
+                
+                <hr class="my-4">
+
+                <div>
+                    <label for="target-price" class="block text-sm font-medium text-gray-700">目標價格 (低於此價格才顯示)</label>
+                    <input type="number" id="target-price" placeholder="例如: 50000" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                </div>
+                
+                <button id="add-button" class="w-full bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-sm hover:bg-blue-700 transition duration-200 flex items-center justify-center space-x-2">
+                    <i data-lucide="plus-circle"></i>
+                    <span>新增到追蹤清單</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- 我的追蹤清單 -->
+        <div>
+            <h2 class="text-2xl font-semibold text-gray-700 mb-4">我的追蹤清單</h2>
+            <div id="tracking-list" class="space-y-6">
+                <!-- 追蹤項目卡片將由 JS 動態插入此處 -->
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        // Gemini API 金鑰 (留空)
+        const apiKey = "";
+        const textApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+        const visionApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`; // Vision Pro 支援工具
+
+        // 初始追蹤的商品
+        const initialItems = [
+            {
+                id: 'item-1',
+                name: '音圓 party7000',
+                targetPrice: 60000,
+                imageB64: null,
+            },
+            {
+                id: 'item-2',
+                name: '音圓 star 55',
+                targetPrice: 47900,
+                imageB64: null,
+            }
+        ];
+
+        // 獲取 DOM 元素
+        const trackingListContainer = document.getElementById('tracking-list');
+        const productNameInput = document.getElementById('product-name');
+        const targetPriceInput = document.getElementById('target-price');
+        const imageUploadInput = document.getElementById('image-upload');
+        const imagePreview = document.getElementById('image-preview');
+        const addButton = document.getElementById('add-button');
+
+        let currentImageB64 = null; // 用於暫存上傳的圖片
+
+        // JSON Schema 用於規範 Gemini 回應的格式
+        const responseSchema = {
+            type: "OBJECT",
+            properties: {
+                "results": {
+                    type: "ARRAY",
+                    items: {
+                        type: "OBJECT",
+                        properties: {
+                            "storeName": { type: "STRING", description: "商家或平台名稱" },
+                            "price": { type: "STRING", description: "找到的商品價格 (包含貨幣符號)" },
+                            "url": { type: "STRING", description: "商品的直接網址" },
+                            "imageUrl": { type: "STRING", description: "商品圖片的網址" },
+                            "snippet": { type: "STRING", description: "商品簡短描述或標題" }
+                        },
+                        required: ["storeName", "price", "url"]
+                    }
+                },
+                "message": { type: "STRING", description: "給使用者的總結訊息，例如 '已為您找到 3 個結果' 或 '找不到低於目標價的商品'" }
+            },
+            required: ["results", "message"]
+        };
+        
+        // 系統提示 (System Prompt)
+        const systemPrompt = `你是一個專業的中文比價助手。你的任務是使用 Google 搜尋工具來尋找特定商品的價格。
+        1.  你必須嚴格遵守使用者設定的「目標價格」。
+        2.  只回傳價格「嚴格低於」或「等於」目標價格的搜尋結果。
+        3.  如果找不到任何低於或等於目標價的商品，請在 'message' 欄位中誠實告知使用者，並保持 'results' 陣列為空。
+        4.  從搜尋結果中，為每一個符合條件的商品提取：商家名稱 (storeName)、價格 (price)、網址 (url)、商品圖片網址 (imageUrl) 和簡短描述 (snippet)。
+        5.  請確保價格的準確性。
+        6.  以 JSON 格式回傳結果。`;
+
+        /**
+         * 呼叫 Gemini API 的通用函數 (包含指數退避重試)
+         */
+        async function callGeminiAPI(payload, apiUrl) {
+            let retries = 0;
+            const maxRetries = 3;
+            let delay = 1000;
+
+            while (retries < maxRetries) {
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP 錯誤! 狀態: ${response.status}`);
+                    }
+
+                    const result = await response.json();
+                    
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) 
+                    {
+                        const jsonText = result.candidates[0].content.parts[0].text;
+                        try {
+                            // 解析模型回傳的 JSON 字串
+                            return JSON.parse(jsonText);
+                        } catch (e) {
+                            console.error("解析 JSON 失敗:", e, jsonText);
+                            throw new Error("無法解析模型的 JSON 回應。");
+                        }
+                    } else {
+                        console.warn("API 回應中沒有有效的候選內容:", result);
+                        // 檢查是否有阻擋 (safety ratings)
+                        if (result.promptFeedback && result.promptFeedback.blockReason) {
+                            throw new Error(`請求被阻擋: ${result.promptFeedback.blockReason}`);
+                        }
+                        throw new Error("API 回應格式不符預期。");
+                    }
+
+                } catch (error) {
+                    console.error(`API 呼叫失敗 (第 ${retries + 1} 次):`, error);
+                    retries++;
+                    if (retries < maxRetries) {
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        delay *= 2; // 指數退避
+                    } else {
+                        return { results: [], message: `API 請求失敗: ${error.message}` };
+                    }
+                }
+            }
+        }
+        
+        /**
+         * 將圖片檔案讀取為 Base64
+         */
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result.split(',')[1]); // 移除 data:mime/type;base64,
+                reader.onerror = error => reject(error);
+            });
+        }
+
+        /**
+         * 執行搜尋 (文字或圖片)
+         */
+        async function performSearch(item, resultsDiv) {
+            resultsDiv.innerHTML = '<div class="flex justify-center it
