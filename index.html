@@ -95,86 +95,17 @@
       text-align: center;
     }
 
-    /* --- Video Carousel (影片輪播樣式) --- */
-    .carousel-container {
-        position: relative;
-        max-width: 350px; /* 限制寬度，適合直式影片 */
-        margin: 0 auto 40px auto;
-        border-radius: 15px;
-        overflow: hidden;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        background: #000;
-        aspect-ratio: 9/16; /* 設定為 9:16 直式比例 */
+    /* --- Portfolio & Reels --- */
+    .media-row { 
+        display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-bottom: 28px;
+    }
+    /* 讓影片在手機上自適應 */
+    .media-row iframe {
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        max-width: 100%;
     }
 
-    .carousel-slide {
-        display: none;
-        width: 100%;
-        height: 100%;
-    }
-    .carousel-slide.active {
-        display: block;
-        animation: fadeIn 0.5s;
-    }
-    @keyframes fadeIn { from { opacity: 0.8; } to { opacity: 1; } }
-
-    .carousel-slide video {
-        width: 100%;
-        height: 100%;
-        object-fit: cover; /* 確保填滿 */
-    }
-
-    /* 左右切換按鈕 */
-    .prev-btn, .next-btn {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        background-color: rgba(255, 255, 255, 0.3);
-        color: white;
-        border: none;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        cursor: pointer;
-        font-size: 18px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: 0.3s;
-        backdrop-filter: blur(2px);
-    }
-    .prev-btn:hover, .next-btn:hover {
-        background-color: rgba(255, 255, 255, 0.6);
-        color: #333;
-    }
-    .prev-btn { left: 10px; }
-    .next-btn { right: 10px; }
-
-    /* 下方指示點 */
-    .dots-container {
-        text-align: center;
-        margin-top: -30px; 
-        position: absolute;
-        bottom: 15px;
-        width: 100%;
-        z-index: 10;
-    }
-    .dot {
-        height: 8px;
-        width: 8px;
-        margin: 0 4px;
-        background-color: rgba(255,255,255,0.5);
-        border-radius: 50%;
-        display: inline-block;
-        transition: background-color 0.3s ease;
-        cursor: pointer;
-    }
-    .dot.active {
-        background-color: #fff;
-        transform: scale(1.2);
-    }
-
-    /* --- Portfolio Images --- */
     .portfolio-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
     .portfolio-img {
       width: 150px; height: 150px; border-radius: 10px;
@@ -297,34 +228,11 @@
   <section>
     <h2>Portfolio 作品集</h2>
     
-    <div class="carousel-container">
-        <div class="carousel-slide active">
-            <video src="1.mp4" controls playsinline></video>
-        </div>
-        <div class="carousel-slide">
-            <video src="2.mp4" controls playsinline></video>
-        </div>
-        <div class="carousel-slide">
-            <video src="3.mp4" controls playsinline></video>
-        </div>
-        <div class="carousel-slide">
-            <video src="4.mp4" controls playsinline></video>
-        </div>
-        <div class="carousel-slide">
-            <video src="5.mp4" controls playsinline></video>
-        </div>
-
-        <button class="prev-btn" onclick="moveSlide(-1)"><i class="fas fa-chevron-left"></i></button>
-        <button class="next-btn" onclick="moveSlide(1)"><i class="fas fa-chevron-right"></i></button>
-        
-        <div class="dots-container">
-            <span class="dot active" onclick="currentSlide(1)"></span>
-            <span class="dot" onclick="currentSlide(2)"></span>
-            <span class="dot" onclick="currentSlide(3)"></span>
-            <span class="dot" onclick="currentSlide(4)"></span>
-            <span class="dot" onclick="currentSlide(5)"></span>
-        </div>
+    <div class="media-row">
+       <iframe width="320" height="500" src="https://www.instagram.com/reel/DQ_EiSQkUd8/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+       <iframe width="320" height="500" src="https://www.instagram.com/reel/DROreuBEdBf/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
     </div>
+    
     <div class="portfolio-row">
       <img src="p1.jpg" class="portfolio-img">
       <img src="p2.jpg" class="portfolio-img">
@@ -378,6 +286,8 @@
     <div class="add-on">
         ★ 以上課程皆可加購 <strong>唇氧課程 $990</strong>
     </div>
+    
+    <p style="text-align: center; margin-top: 20px; color: #999; font-size: 0.8em;">※ 實際價格以現場諮詢評估為主</p>
   </section>
 
   <section>
@@ -445,44 +355,6 @@
   </div>
 
   <script>
-    // --- 影片輪播 JS (Carousel) ---
-    let slideIndex = 1;
-    
-    function moveSlide(n) {
-        showSlides(slideIndex += n);
-    }
-    
-    function currentSlide(n) {
-        showSlides(slideIndex = n);
-    }
-    
-    function showSlides(n) {
-        let i;
-        let slides = document.getElementsByClassName("carousel-slide");
-        let dots = document.getElementsByClassName("dot");
-        
-        if (n > slides.length) {slideIndex = 1}    
-        if (n < 1) {slideIndex = slides.length}
-        
-        // 隱藏所有影片
-        for (i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";  
-            // 嘗試暫停切換掉的影片，避免聲音重疊
-            let video = slides[i].querySelector('video');
-            if(video) video.pause();
-        }
-        
-        // 移除所有點的 active
-        for (i = 0; i < dots.length; i++) {
-            dots[i].className = dots[i].className.replace(" active", "");
-        }
-        
-        // 顯示當前影片
-        slides[slideIndex-1].style.display = "block";  
-        dots[slideIndex-1].className += " active";
-    }
-
-    // --- 預約系統與其他功能 JS ---
     const dateInput = document.getElementById('bookDate');
     const today = new Date();
     const maxDate = new Date();
@@ -581,5 +453,6 @@ ${content}
   </script>
 </body>
 </html>
+
 
 
