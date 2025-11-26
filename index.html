@@ -2,11 +2,10 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <title>原彤Skin | 專屬霧唇美學</title>
+  <title>原彤Skin | Restore your beauty</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    /* --- 核心樣式設定 --- */
     :root {
       --primary-purple: #7a6f8a;
       --light-purple: #a790b8;
@@ -18,436 +17,192 @@
       font-family: "Noto Sans TC", Arial, sans-serif;
       background: var(--bg-color);
       color: #444;
-      margin: 0;
-      padding: 0;
+      margin: 0; padding: 0;
       line-height: 1.6;
+      padding-bottom: 100px;
     }
 
-    /* --- Header --- */
     header {
-      text-align: center;
-      padding: 55px 20px 40px 20px;
-      background: var(--white);
-      border-bottom: 1px solid #eee;
+      text-align: center; padding: 40px 20px;
+      background: var(--white); border-bottom: 1px solid #eee;
     }
-    .hero-img {
-      width: 130px; height: 130px; margin: 0 auto 20px auto;
-      border-radius: 50%; 
-      box-shadow: 0 4px 20px #d2cce3;
-      object-fit: cover;
-      display: block;
-      border: 3px solid #fff;
+    .logo-text {
+      font-family: 'Noto Serif TC', serif; font-size: 2.2em; 
+      letter-spacing: .1em; color: #333; margin: 0; font-weight: bold;
     }
-    h1 { 
-      font-family: 'Noto Serif TC', serif;
-      font-size: 2.2em; 
-      letter-spacing: .1em; 
-      margin-bottom: 0.2em; 
-      color: #333;
-    }
-    .tagline { font-size: 1.1em; color: var(--primary-purple); margin-bottom: 25px; }
-    
-    /* --- Button --- */
-    .cta-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 12px;
-    }
-    .cta {
-      display: inline-block;
-      background: var(--primary-purple); color: #fff;
-      font-size: 1.1em; padding: 12px 45px;
-      border-radius: 50px; border: none; 
-      box-shadow: 0 4px 15px rgba(122, 111, 138, 0.4);
-      text-decoration: none; transition: all 0.3s;
-      cursor: pointer;
-    }
-    .cta:hover { background: #685d7a; transform: translateY(-2px); }
-    .promo-code {
-        font-size: 0.9em;
-        color: var(--light-purple);
-        background: #f4f0f9;
-        padding: 6px 18px;
-        border-radius: 20px;
-        border: 1px dashed var(--light-purple);
-    }
+    .tagline { font-size: 1em; color: var(--primary-purple); margin-top: 10px; letter-spacing: 1px; }
 
-    /* --- Section --- */
     section {
-      max-width: 800px;
-      margin: 40px auto;
-      background: var(--white);
-      padding: 40px 30px;
-      box-shadow: 0 8px 30px rgba(223, 216, 236, 0.4);
-      border-radius: 20px;
+      max-width: 700px; margin: 30px auto;
+      background: var(--white); padding: 35px 25px;
+      box-shadow: 0 5px 20px rgba(223, 216, 236, 0.3);
+      border-radius: 16px;
     }
     h2 { 
-      font-family: 'Noto Serif TC', serif;
-      font-size: 1.6em; 
-      color: var(--primary-purple); 
-      margin-top: 0; 
-      border-bottom: 2px solid #f4f4fa; 
-      padding-bottom: 15px; 
-      margin-bottom: 25px;
-      text-align: center;
+      font-family: 'Noto Serif TC', serif; font-size: 1.5em; 
+      color: var(--primary-purple); margin-top: 0; border-bottom: 2px solid #f4f4fa; 
+      padding-bottom: 12px; margin-bottom: 25px; text-align: center;
     }
 
-    /* --- Portfolio & Reels --- */
-    .media-row { 
-        display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-bottom: 28px;
-    }
-    .media-row iframe {
-        border-radius: 12px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        max-width: 100%;
-    }
+    .story-text { text-align: justify; line-height: 1.8; color: #555; }
+    .story-highlight { color: var(--primary-purple); font-weight: bold; font-family: 'Noto Serif TC', serif; }
 
-    .portfolio-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+    .portfolio-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
     .portfolio-img {
-      width: 150px; height: 150px; border-radius: 10px;
-      box-shadow: 0 2px 8px #e0dde7; object-fit: cover;
+      width: 48%; height: 200px; border-radius: 8px;
+      box-shadow: 0 4px 10px #e0dde7; object-fit: cover;
     }
 
-    /* --- Price List & FAQ --- */
     .service-list { list-style: none; padding: 0; }
     .service-list li { 
-        margin-bottom: 20px; 
-        border-bottom: 1px dashed #eee; 
-        padding-bottom: 15px;
-        display: flex;
-        justify-content: space-between;
-        align-items: baseline;
+        margin-bottom: 18px; border-bottom: 1px dashed #eee; padding-bottom: 12px;
+        display: flex; justify-content: space-between; align-items: baseline;
     }
-    .service-name { font-weight: 500; font-size: 1.1em; color: #333; }
-    .price { color: var(--primary-purple); font-weight: bold; font-family: 'Noto Serif TC', serif; font-size: 1.15em; }
+    .service-name { font-weight: 500; font-size: 1.05em; color: #333; }
+    .price { color: var(--primary-purple); font-weight: bold; font-family: 'Noto Serif TC', serif; font-size: 1.1em; }
     
     .package-block {
-        background-color: #fbf9fc;
-        padding: 25px;
-        border-radius: 12px;
-        border: 1px solid #efeef5;
-        margin-top: 30px;
+        background-color: #fdfafd; padding: 20px; border-radius: 10px;
+        border: 1px solid #efeef5; margin-top: 25px;
     }
-    .package-title {
-        color: var(--light-purple);
-        font-weight: bold;
-        margin-bottom: 20px;
-        display: block;
-        text-align: center;
-        letter-spacing: 1px;
-    }
-    .add-on {
-        text-align: center;
-        margin-top: 25px;
-        padding: 15px;
-        background: #f4f4fa;
-        color: #666;
-        border-radius: 8px;
-        font-size: 0.95em;
-    }
+    .package-title { color: var(--light-purple); font-weight: bold; margin-bottom: 15px; display: block; text-align: center; }
 
     .faq-list { list-style: none; padding: 0; }
-    .faq-list li { margin-bottom: 20px; background: #fcfcfc; padding: 20px; border-radius: 10px; border-left: 4px solid var(--light-purple); }
-    .faq-title { font-weight: bold; color: var(--primary-purple); margin-bottom: 8px; display: block; font-size: 1.05em; }
+    .faq-list li { margin-bottom: 15px; background: #fcfcfc; padding: 15px; border-radius: 8px; border-left: 3px solid var(--light-purple); font-size: 0.95em; }
+    .faq-title { font-weight: bold; color: var(--primary-purple); display: block; margin-bottom: 5px; }
 
-    footer {
-      text-align: center; padding: 40px 20px; background: #333; color: #aaa; font-size: 0.85em;
+    .floating-bar {
+        position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
+        z-index: 99; width: 90%; max-width: 450px;
+        display: flex; flex-direction: column; align-items: center; gap: 8px;
     }
+    .cta-btn {
+        background: var(--primary-purple); color: #fff;
+        width: 100%; padding: 15px; text-align: center;
+        border-radius: 50px; font-size: 1.1em; font-weight: bold;
+        text-decoration: none; box-shadow: 0 5px 20px rgba(122, 111, 138, 0.4);
+        border: none; cursor: pointer; transition: background 0.3s;
+    }
+    .cta-btn:active { transform: scale(0.98); background: #685d7a; }
+    .promo-hint { font-size: 0.85em; color: #666; background: rgba(255,255,255,0.95); padding: 6px 15px; border-radius: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
 
-    /* --- Modal --- */
-    .modal {
-        display: none; 
-        position: fixed; 
-        z-index: 1000; 
-        left: 0; top: 0; 
-        width: 100%; height: 100%; 
-        overflow: auto; 
-        background-color: rgba(0,0,0,0.6); 
-        backdrop-filter: blur(4px);
-    }
-    .modal-content {
-        background-color: #fff;
-        margin: 5% auto;
-        padding: 30px;
-        border: 1px solid #888;
-        width: 90%; max-width: 500px;
-        border-radius: 16px;
-        position: relative;
-        animation: slideUp 0.4s ease;
-    }
+    .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); backdrop-filter: blur(3px); overflow: auto; }
+    .modal-content { background-color: #fff; margin: 5% auto; padding: 25px; width: 85%; max-width: 450px; border-radius: 16px; animation: slideUp 0.4s ease; }
     @keyframes slideUp { from {transform: translateY(50px); opacity: 0;} to {transform: translateY(0); opacity: 1;} }
-    .close { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
-    .close:hover { color: #000; }
+    .close { float: right; font-size: 28px; cursor: pointer; color: #aaa; }
     
     .form-group { margin-bottom: 15px; text-align: left; }
-    .form-group label { display: block; margin-bottom: 6px; font-weight: 500; color: var(--primary-purple); font-size: 0.95em; }
-    .form-group input, .form-group select, .form-group textarea {
-        width: 100%; padding: 12px;
-        border: 1px solid #ddd; border-radius: 8px;
-        font-family: inherit; font-size: 1em;
-        background: #fafafa;
-    }
-    .form-group textarea::placeholder { color: #aaa; font-style: italic; font-size: 0.9em; }
+    .form-group label { display: block; margin-bottom: 6px; font-weight: 500; color: var(--primary-purple); }
+    .form-group input, .form-group select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; background: #fafafa; font-size: 16px; box-sizing: border-box; }
     #promoMessage { display: none; color: #28a745; font-size: 0.9em; margin-top: 5px; font-weight: bold; }
-
-    @media(max-width: 720px){
-      section {padding: 24px 16px; margin-top: 20px;}
-      .media-row iframe { width: 100%; }
-      .service-list li { flex-direction: column; align-items: flex-start; }
-      .price { margin-top: 5px; }
-    }
+    
+    footer { text-align: center; padding: 30px; color: #999; font-size: 0.8em; }
   </style>
 </head>
 <body>
 
   <header>
-    <img src="logo1.JPG" alt="原彤skin logo" class="hero-img">
-    
-    <h1>原彤Skin</h1>
+    <h1 class="logo-text">原彤Skin</h1>
     <div class="tagline">為自己而改變，找回素顏的自信光采</div>
-    
-    <div class="cta-container">
-        <button id="openModalBtn" class="cta">立即諮詢 / 預約</button>
-        <span class="promo-code">複製優惠代碼：<strong>Yuki</strong> (享專屬小禮物)</span>
-    </div>
   </header>
 
   <section>
-    <h2>Brand Story 品牌故事</h2>
-    <p style="line-height: 1.8; text-align: justify; color: #555;">
-      <strong>「褪去繁複，還原最原本的紅潤。」</strong><br><br>
-      原彤Skin 創立於對美的極致追求。我們相信，真正的自信不需濃妝豔抹，而是源自於素顏時的那份從容與光采。<br><br>
-      主理人將多年的店務管理經驗，轉化為對技術細節的嚴苛要求。我們不僅僅是提供紋繡服務，更是為每一位女性量身打造專屬的「自信色彩」。<br><br>
-      <em>來到原彤Skin，讓我們陪妳一起，為自己而改變。</em>
-    </p>
+    <h2>品牌故事 Brand Story</h2>
+    <div class="story-text">
+      <p>帶著素顏自信的初衷，我離開了店長的職稱，選擇歸零，專注於幫助每個女人找到屬於自己的自信色彩。</p>
+      <p>以前我管理店務，現在我管理細節。這一次，我只為自己而活，也為妳的自信而堅持。</p>
+      <p class="story-highlight">歡迎來到原彤Skin，讓我為妳找到專屬的自信色彩。</p>
+    </div>
   </section>
 
   <section>
-    <h2>Portfolio 作品集</h2>
-    
-    <div class="media-row">
-       <iframe width="320" height="500" src="https://www.instagram.com/reel/DQ_EiSQkUd8/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
-       <iframe width="320" height="500" src="https://www.instagram.com/reel/DROreuBEdBf/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
-    </div>
-    
+    <h2>作品集 Portfolio</h2>
     <div class="portfolio-row">
-      <img src="p1.jpg" class="portfolio-img">
-      <img src="p2.jpg" class="portfolio-img">
-      <img src="p3.jpg" class="portfolio-img">
-      <img src="p4.jpg" class="portfolio-img">
+      <img src="https://images.unsplash.com/photo-1596462502278-27bfdd403348?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="範例唇色圖1" class="portfolio-img">
+      <img src="https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="範例唇色圖2" class="portfolio-img">
     </div>
-    
-    <p style="margin-top:20px; text-align: center;">
-      更多作品歡迎追蹤 <a href="https://www.instagram.com/tong.skin" target="_blank" style="color:var(--primary-purple); font-weight:bold; text-decoration:none;">@tong.skin</a>
+    <p style="text-align:center; margin-top:15px; color:#888; font-size:0.9em;">
+        更多作品請至 Instagram <a href="#" style="color:var(--primary-purple); text-decoration:none;">@tong.skin</a>
     </p>
   </section>
 
   <section>
-    <h2>Service Menu 服務價目</h2>
-    
+    <h2>服務項目 Service Menu</h2>
     <ul class="service-list">
-      <li>
-        <span class="service-name">唇色還原</span>
-        <span class="price">NT$ 7,980</span>
-      </li>
-      <li>
-        <span class="service-name">唇淡色</span>
-        <span class="price">NT$ 3,490</span>
-      </li>
-      <li>
-        <span class="service-name">唇氧護</span>
-        <span class="price">NT$ 1,980</span>
-      </li>
+      <li><span class="service-name">唇色還原</span><span class="price">NT$ 7,980</span></li>
+      <li><span class="service-name">唇淡色</span><span class="price">NT$ 3,490</span></li>
+      <li><span class="service-name">唇氧護</span><span class="price">NT$ 1,980</span></li>
     </ul>
 
     <div class="package-block">
         <span class="package-title">✦ 專屬包套方案</span>
         <ul class="service-list" style="margin-bottom:0;">
-            <li>
-                <div>
-                    <span class="service-name">淡色包套 (3堂)</span>
-                    <br><small style="color:#888; font-size:0.85em;">循序漸進，打造透亮裸唇</small>
-                </div>
-                <span class="price">NT$ 8,490</span>
-            </li>
-            <li style="border-bottom:none; padding-bottom:0;">
-                <div>
-                    <span class="service-name">唇色還原套組</span>
-                    <br><small style="color:#888; font-size:0.85em;">含：霧唇 x1 + 淡色 x1</small>
-                </div>
-                <span class="price">NT$ 9,450</span>
-            </li>
+            <li><div><span class="service-name">淡色包套 (3堂)</span></div><span class="price">NT$ 8,490</span></li>
+            <li style="border-bottom:none; padding-bottom:0;"><div><span class="service-name">唇色還原套組</span></div><span class="price">NT$ 9,450</span></li>
         </ul>
     </div>
-
-    <div class="add-on">
-        ★ 以上課程皆可加購 <strong>唇氧課程 $990</strong>
-    </div>
-    
-    <p style="text-align: center; margin-top: 20px; color: #999; font-size: 0.8em;">※ 實際價格以現場諮詢評估為主</p>
   </section>
 
   <section>
-    <h2>FAQ 常見問題</h2>
+    <h2>常見問題 FAQ</h2>
     <ul class="faq-list">
-      <li><span class="faq-title">Q: 生理期能不能做？</span>建議避開生理期前三天與期間，以確保修復效果最佳與降低敏感度。</li>
-      <li><span class="faq-title">Q: 效果能維持多久？</span>一般可維持 1-3 年，依個人新陳代謝與保養習慣而異。</li>
-      <li><span class="faq-title">Q: 施作過程會痛嗎？</span>我們採用專業無痛技術與舒緩膏，過程僅有輕微震動感，多數客人皆可睡著。</li>
+      <li><span class="faq-title">Q: 生理期能不能做？</span>建議避開生理期前三天與期間，以降低敏感度。</li>
+      <li><span class="faq-title">Q: 效果能維持多久？</span>一般可維持 1-3 年，依個人代謝而異。</li>
     </ul>
   </section>
 
-  <footer>
-    原彤Skin © 2025 | Restore your beauty<br>
-    Designed for You
-  </footer>
+  <footer>原彤Skin © 2025 | Designed for You</footer>
+
+  <div class="floating-bar">
+      <div class="promo-hint">輸入代碼 <b>Yuki</b> 享神祕好禮 🎁</div>
+      <button id="openModalBtn" class="cta-btn">立即預約諮詢</button>
+  </div>
 
   <div id="bookingModal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
-        <h3 style="text-align: center; color: var(--primary-purple); margin-bottom: 20px;">預約資料填寫</h3>
-        
+        <h3 style="text-align: center; color: var(--primary-purple);">預約資料填寫</h3>
         <form id="bookingForm">
-            <div class="form-group">
-                <label>姓名 Name</label>
-                <input type="text" id="name" required placeholder="請輸入您的姓名">
-            </div>
-            <div class="form-group">
-                <label>電話 Phone</label>
-                <input type="tel" id="phone" required placeholder="09xx-xxx-xxx">
-            </div>
-            <div class="form-group">
-                <label>生日 Birthday</label>
-                <input type="date" id="birthday" required>
-            </div>
-            <div class="form-group">
-                <label>性別 Gender</label>
-                <select id="gender">
-                    <option value="女">女</option>
-                    <option value="男">男</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>預約日期 Date (僅開放近30天)</label>
-                <input type="date" id="bookDate" required>
-            </div>
-            <div class="form-group">
-                <label>預約時段 Time (10:00-20:00)</label>
-                <select id="bookTime" required>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>參加內容 / 想改善的地方</label>
-                <textarea id="content" rows="3" placeholder="水水們，哪裡想變美美的...（可留白，現場諮詢）"></textarea>
-            </div>
-            <div class="form-group">
-                <label>優惠代碼 Promo Code</label>
-                <input type="text" id="promoCode" placeholder="輸入 Yuki 領取小禮物">
-                <div id="promoMessage">🎉 優惠代碼有效！現場贈送精美小禮物！</div>
-            </div>
-
-            <button type="submit" class="cta" style="width: 100%; border-radius: 8px;">確認預約 (送出信件)</button>
-            <p style="font-size: 0.8rem; color: #999; margin-top: 10px; text-align: center;">*按下確認後將自動開啟您的郵件軟體</p>
+            <div class="form-group"><label>姓名 Name</label><input type="text" id="name" required placeholder="請輸入您的姓名"></div>
+            <div class="form-group"><label>電話 Phone</label><input type="tel" id="phone" required placeholder="09xx-xxx-xxx"></div>
+            <div class="form-group"><label>預約日期 Date</label><input type="date" id="bookDate" required></div>
+            <div class="form-group"><label>預約時段 Time</label><select id="bookTime" required></select></div>
+            <div class="form-group"><label>優惠代碼 Promo Code</label><input type="text" id="promoCode" placeholder="輸入 Yuki"><div id="promoMessage">🎉 優惠代碼有效！</div></div>
+            <button type="submit" class="cta-btn" style="border-radius:10px; margin-top:10px;">送出預約信</button>
         </form>
     </div>
   </div>
 
   <script>
+    // 日期限制與時段生成
     const dateInput = document.getElementById('bookDate');
-    const today = new Date();
-    const maxDate = new Date();
-    maxDate.setDate(today.getDate() + 30);
-
-    function formatDate(date) {
-        let d = new Date(date),
-            month = '' + (d.getMonth() + 1),
-            day = '' + d.getDate(),
-            year = d.getFullYear();
-
-        if (month.length < 2) month = '0' + month;
-        if (day.length < 2) day = '0' + day;
-        return [year, month, day].join('-');
-    }
-
-    dateInput.min = formatDate(today);
-    dateInput.max = formatDate(maxDate);
+    const today = new Date(); const maxDate = new Date(); maxDate.setDate(today.getDate() + 30);
+    function formatDate(d) { return d.toISOString().split('T')[0]; }
+    dateInput.min = formatDate(today); dateInput.max = formatDate(maxDate);
 
     const timeSelect = document.getElementById('bookTime');
-    const timeSlots = ["10:00", "12:00", "14:00", "16:00", "18:00", "20:00"];
-    
-    timeSlots.forEach(time => {
-        let option = document.createElement('option');
-        option.value = time;
-        option.text = time;
-        timeSelect.appendChild(option);
+    ["10:00","12:00","14:00","16:00","18:00","20:00"].forEach(t => {
+        let opt = document.createElement('option'); opt.value = t; opt.innerText = t; timeSelect.appendChild(opt);
     });
 
+    // 優惠代碼與 Modal
+    document.getElementById('promoCode').addEventListener('input', function() {
+        document.getElementById('promoMessage').style.display = (this.value.trim().toLowerCase() === 'yuki') ? 'block' : 'none';
+    });
     const modal = document.getElementById("bookingModal");
-    const btn = document.getElementById("openModalBtn");
-    const span = document.getElementsByClassName("close")[0];
+    const closeSpan = document.getElementsByClassName("close")[0];
+    document.getElementById("openModalBtn").onclick = () => modal.style.display = "block";
+    closeSpan.onclick = () => modal.style.display = "none";
+    window.onclick = (e) => { if (e.target == modal) modal.style.display = "none"; };
 
-    btn.onclick = function() { modal.style.display = "block"; }
-    span.onclick = function() { modal.style.display = "none"; }
-    window.onclick = function(event) {
-        if (event.target == modal) { modal.style.display = "none"; }
-    }
-
-    const promoInput = document.getElementById('promoCode');
-    const promoMsg = document.getElementById('promoMessage');
-
-    promoInput.addEventListener('input', function() {
-        if (this.value.trim().toLowerCase() === 'yuki') {
-            promoMsg.style.display = 'block';
-        } else {
-            promoMsg.style.display = 'none';
-        }
-    });
-
+    // 表單送出
     document.getElementById('bookingForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const name = document.getElementById('name').value;
         const phone = document.getElementById('phone').value;
-        const birthday = document.getElementById('birthday').value;
-        const gender = document.getElementById('gender').value;
         const date = document.getElementById('bookDate').value;
         const time = document.getElementById('bookTime').value;
-        const content = document.getElementById('content').value;
         const promo = document.getElementById('promoCode').value;
-        
-        let promoStatus = "無";
-        if(promo.trim().toLowerCase() === 'yuki') {
-            promoStatus = "【Yuki 優惠 - 需準備小禮物🎁】";
-        }
-
+        const promoText = (promo.trim().toLowerCase() === 'yuki') ? "【已使用 Yuki 優惠】" : "無";
         const emails = "a911097777@gmail.com,wenheny831@gmail.com";
-        const subject = `【預約通知】${name} - ${date} ${time}`;
-        
-        const body = `
-----------------------------------------
-   原彤Skin - 新客戶預約單
-----------------------------------------
-
-👤 姓名：${name}
-📞 電話：${phone}
-🎂 生日：${birthday}
-⚧ 性別：${gender}
-
-📅 預約日期：${date}
-⏰ 預約時段：${time}
-
-📝 想變美的地方/備註：
-${content}
-
-🎁 優惠代碼狀態：${promoStatus}
-
-----------------------------------------
-(此信件由官網預約系統自動生成)
-        `;
-
-        window.location.href = `mailto:${emails}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-        modal.style.display = "none";
-        alert("已為您建立預約信件！\n\n請按下郵件軟體的「傳送」按鈕，我們收到信後會盡快與您聯繫確認。");
-    });
-  </script>
-</body>
-</html>
+        const subject = `【預約】${name} - ${date} ${time}`;
