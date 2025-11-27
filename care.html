@@ -1,1 +1,242 @@
 
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>霧唇專屬模擬 - 自然美學</title>
+    <style>
+        /* 全局設定 */
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        /* Header / Logo 區域 */
+        header {
+            background: #fff;
+            padding: 15px 20px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #444;
+            /* 模擬 Logo 圖片顯示 */
+        }
+
+        /* 霧唇模擬器核心區塊 */
+        .simulator-container {
+            max-width: 480px; /* 手機寬度模擬 */
+            margin: 20px auto;
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        /* 照片顯示區 */
+        .photo-area {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            background-color: #eee;
+            background-image: url('https://placehold.co/400x500/png?text=用戶上傳照片區'); /* 預設圖 */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        /* 模擬嘴唇變色層 (示意：實際開發需搭配臉部辨識技術) */
+        .lip-overlay {
+            position: absolute;
+            top: 55%; 
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px; 
+            height: 30px;
+            background-color: transparent; /* 預設無色 */
+            border-radius: 50%;
+            filter: blur(8px); /* 霧感關鍵 */
+            mix-blend-mode: multiply; /* 正片疊底：模擬融入皮膚 */
+            opacity: 0.6;
+            pointer-events: none;
+            transition: background-color 0.3s ease;
+        }
+
+        /* 長按對比按鈕 */
+        .compare-btn {
+            position: absolute;
+            bottom: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            backdrop-filter: blur(4px);
+        }
+
+        /* 控制面板區域 */
+        .controls {
+            padding: 25px;
+            text-align: center;
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: #fde8e8;
+            color: #c55a5a;
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            margin: 5px 0 10px 0;
+            font-size: 22px;
+            color: #2c2c2c;
+        }
+
+        p.slogan {
+            margin: 0 0 25px 0;
+            font-size: 15px;
+            color: #666;
+            font-weight: normal;
+        }
+
+        /* 8色 選擇器 */
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            justify-items: center;
+        }
+
+        .color-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.2s;
+            position: relative;
+        }
+
+        .color-btn.active {
+            border-color: #333;
+            transform: scale(1.1);
+        }
+        
+        /* 定義8種霧唇色系 */
+        .c1 { background: #D98E7E; } /* 蜜桃烏龍 */
+        .c2 { background: #E6B6AD; } /* 裸粉 */
+        .c3 { background: #C67C7B; } /* 豆沙 */
+        .c4 { background: #DFA98F; } /* 珊瑚橘 */
+        .c5 { background: #B86E6E; } /* 玫瑰紅 */
+        .c6 { background: #D2A889; } /* 奶茶色 */
+        .c7 { background: #EA9E8D; } /* 鮭魚粉 */
+        .c8 { background: #C06C6C; } /* 磚紅霧 */
+
+        /* 作品集區域 */
+        .portfolio-section {
+            max-width: 480px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        .portfolio-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+            border-left: 4px solid #D98E7E;
+            padding-left: 10px;
+        }
+        .portfolio-img {
+            width: 100%;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            display: block;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">logo1</div>
+    </header>
+
+    <div class="simulator-container">
+        <div class="photo-area" id="photoArea">
+            <div class="lip-overlay" id="lipOverlay"></div>
+            
+            <div class="compare-btn" onmousedown="showOriginal()" onmouseup="restoreColor()" ontouchstart="showOriginal()" ontouchend="restoreColor()">
+                👁️ 長按顯示原唇
+            </div>
+        </div>
+
+        <div class="controls">
+            <span class="tag">蜜桃烏龍</span> <h2>唇色模擬純淨</h2>
+            <p class="slogan">以自然的顏色。勝過千萬隻口紅</p>
+
+            <div class="color-grid">
+                <div class="color-btn c1 active" onclick="changeColor('#D98E7E', '蜜桃烏龍', this)"></div>
+                <div class="color-btn c2" onclick="changeColor('#E6B6AD', '純淨裸粉', this)"></div>
+                <div class="color-btn c3" onclick="changeColor('#C67C7B', '溫柔豆沙', this)"></div>
+                <div class="color-btn c4" onclick="changeColor('#DFA98F', '活力珊瑚', this)"></div>
+                <div class="color-btn c5" onclick="changeColor('#B86E6E', '乾燥玫瑰', this)"></div>
+                <div class="color-btn c6" onclick="changeColor('#D2A889', '泰式奶茶', this)"></div>
+                <div class="color-btn c7" onclick="changeColor('#EA9E8D', '甜心粉橘', this)"></div>
+                <div class="color-btn c8" onclick="changeColor('#C06C6C', '復古磚紅', this)"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="portfolio-section">
+        <h3 class="portfolio-title">精選作品集</h3>
+        <img src="https://placehold.co/400x300/e0e0e0/333?text=p1.jpg" alt="作品集 p1" class="portfolio-img">
+        <img src="https://placehold.co/400x300/e0e0e0/333?text=p2.jpg" alt="作品集 p2" class="portfolio-img">
+    </div>
+
+    <script>
+        let currentColor = '#D98E7E'; // 預設顏色
+        const lipOverlay = document.getElementById('lipOverlay');
+        const tagText = document.querySelector('.tag');
+        const btns = document.querySelectorAll('.color-btn');
+
+        // 初始化
+        lipOverlay.style.backgroundColor = currentColor;
+
+        // 切換顏色功能
+        function changeColor(color, name, btnElement) {
+            currentColor = color;
+            lipOverlay.style.backgroundColor = color;
+            tagText.innerText = name;
+
+            // 更新按鈕選中狀態
+            btns.forEach(b => b.classList.remove('active'));
+            btnElement.classList.add('active');
+        }
+
+        // 長按顯示原唇 (隱藏顏色層)
+        function showOriginal() {
+            lipOverlay.style.opacity = '0';
+        }
+
+        // 放開恢復顏色
+        function restoreColor() {
+            lipOverlay.style.opacity = '0.6';
+        }
+    </script>
+</body>
+</html>
