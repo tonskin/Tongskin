@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>選擇預約時間</title>
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <style>
+        body { font-family: -apple-system, sans-serif; background: #fff; margin: 0; padding: 20px; }
+        .date-picker { display: flex; overflow-x: auto; gap: 10px; margin-bottom: 20px; padding-bottom: 10px; }
+        .date-item { 
+            min-width: 60px; padding: 10px; border: 1px solid #eee; 
+            border-radius: 10px; text-align: center; cursor: pointer;
+        }
+        .date-item.active { background: #ff4d6d; color: white; border-color: #ff4d6d; }
+        .date-item.today { color: #ff4d6d; font-weight: bold; }
+        
+        .time-slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .time-item { 
+            padding: 10px; border: 1px solid #ddd; border-radius: 8px; 
+            text-align: center; font-size: 14px; cursor: pointer;
+        }
+        .time-item:hover { background: #fff0f3; }
+        .footer { position: fixed; bottom: 20px; left: 20px; right: 20px; }
+        .btn-confirm { 
+            width: 100%; background: #ff4d6d; color: white; border: none; 
+            padding: 15px; border-radius: 25px; font-size: 16px; 
+        }
+    </style>
+</head>
+<body>
+    <h3>12月, 2025</h3>
+    <div class="date-picker">
+        <div class="date-item">週四<br>25</div>
+        <div class="date-item">週五<br>26</div>
+        <div class="date-item">週六<br>27</div>
+        <div class="date-item active">週日<br>28</div>
+        <div class="date-item">週一<br>29</div>
+    </div>
+
+    <h4>開放時段</h4>
+    <div class="time-slots">
+        <div class="time-item">15:00</div>
+        <div class="time-item">16:00</div>
+        <div class="time-item">17:00</div>
+        <div class="time-item">18:00</div>
+    </div>
+
+    <div class="footer">
+        <button class="btn-confirm" onclick="finishBooking()">完成預約</button>
+    </div>
+
+    <script>
+        async function finishBooking() {
+            // 這裡抓取網址參數中的服務項目
+            const urlParams = new URLSearchParams(window.location.search);
+            const service = urlParams.get('service') || '未選擇服務';
+            
+            await liff.init({ liffId: "你的_LIFF_ID" });
+            if (liff.isLoggedIn()) {
+                await liff.sendMessages([{
+                    type: 'text',
+                    text: `預約成功！\n項目：${service}\n時間：12/28 15:00`
+                }]);
+                liff.closeWindow();
+            }
+        }
+    </script>
+</body>
+</html>
