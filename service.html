@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>選擇服務</title>
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <style>
+        body { font-family: sans-serif; background: #fff5f7; margin: 0; padding: 20px; }
+        .card { background: white; border-radius: 12px; padding: 15px; margin-bottom: 10px; border: 1px solid #ffe0e6; display: flex; align-items: center; }
+        .checkbox { width: 20px; height: 20px; margin-right: 15px; accent-color: #ff4d6d; }
+        .btn-next { width: 100%; background: #ff4d6d; color: white; border: none; padding: 15px; border-radius: 30px; font-size: 16px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h3>選擇預約項目</h3>
+    <div class="card">
+        <input type="checkbox" class="checkbox" value="霧唇 | 唇色還原">
+        <div><strong>霧唇 | 唇色還原</strong><br><small>$8500 / 200分鐘</small></div>
+    </div>
+    <div class="card">
+        <input type="checkbox" class="checkbox" value="唇淨淡色 | 改烏唇">
+        <div><strong>唇淨淡色 | 改烏唇</strong><br><small>$3800 / 90分鐘</small></div>
+    </div>
+    
+    <button class="btn-next" onclick="nextPage()">下一步：選擇時間</button>
+
+    <script>
+        function nextPage() {
+            const selected = Array.from(document.querySelectorAll('.checkbox:checked')).map(el => el.value);
+            if(selected.length === 0) return alert("請選擇項目");
+            window.location.href = `booking.html?service=${encodeURIComponent(selected.join(','))}`;
+        }
+    </script>
+</body>
+</html>
