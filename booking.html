@@ -3,67 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>選擇預約時間</title>
-    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <title>選擇預約時間 - 原彤Skin</title>
     <style>
-        body { font-family: -apple-system, sans-serif; background: #fff; margin: 0; padding: 20px; }
-        .date-picker { display: flex; overflow-x: auto; gap: 10px; margin-bottom: 20px; padding-bottom: 10px; }
-        .date-item { 
-            min-width: 60px; padding: 10px; border: 1px solid #eee; 
-            border-radius: 10px; text-align: center; cursor: pointer;
-        }
-        .date-item.active { background: #ff4d6d; color: white; border-color: #ff4d6d; }
-        .date-item.today { color: #ff4d6d; font-weight: bold; }
-        
-        .time-slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-        .time-item { 
-            padding: 10px; border: 1px solid #ddd; border-radius: 8px; 
-            text-align: center; font-size: 14px; cursor: pointer;
-        }
-        .time-item:hover { background: #fff0f3; }
-        .footer { position: fixed; bottom: 20px; left: 20px; right: 20px; }
-        .btn-confirm { 
-            width: 100%; background: #ff4d6d; color: white; border: none; 
-            padding: 15px; border-radius: 25px; font-size: 16px; 
-        }
+        :root { --primary-purple: #7a6f8a; }
+        body { font-family: -apple-system, sans-serif; padding: 20px; background: white; line-height: 1.5; }
+        .summary { background: #fdf2f4; padding: 15px; border-radius: 10px; margin-bottom: 20px; border-left: 5px solid var(--primary-purple); }
+        .date-picker { display: flex; gap: 10px; overflow-x: auto; margin: 15px 0; padding-bottom: 10px; }
+        .date-item { min-width: 60px; padding: 12px 5px; border: 1px solid #eee; border-radius: 12px; text-align: center; cursor: pointer; }
+        .date-item.active { background: var(--primary-purple); color: white; border-color: var(--primary-purple); }
+        .time-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; }
+        .time-btn { border: 1px solid #ddd; padding: 12px; text-align: center; border-radius: 10px; cursor: pointer; font-size: 14px; }
+        .time-btn.active { background: var(--primary-purple); color: white; border-color: var(--primary-purple); }
+        .confirm-btn { width: 100%; margin-top: 40px; background: #333; color: white; padding: 15px; border-radius: 30px; border: none; font-size: 18px; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
-    <h3>12月, 2025</h3>
-    <div class="date-picker">
-        <div class="date-item">週四<br>25</div>
-        <div class="date-item">週五<br>26</div>
-        <div class="date-item">週六<br>27</div>
-        <div class="date-item active">週日<br>28</div>
-        <div class="date-item">週一<br>29</div>
+    <h3>第二步：選擇時間</h3>
+    <div class="summary" id="selectedServiceDisplay">已選項目：載入中...</div>
+
+    <div class="date-picker" id="dateBar">
+        </div>
+
+    <h4>開放預約時段</h4>
+    <div class="time-grid">
+        <div class="time-btn" onclick="selT(this)">10:00</div>
+        <div class="time-btn" onclick="selT(this)">12:00</div>
+        <div class="time-btn" onclick="selT(this)">14:00</div>
+        <div class="time-btn" onclick="selT(this)">16:00</div>
+        <div class="time-btn" onclick="selT(this)">18:00</div>
     </div>
 
-    <h4>開放時段</h4>
-    <div class="time-slots">
-        <div class="time-item">15:00</div>
-        <div class="time-item">16:00</div>
-        <div class="time-item">17:00</div>
-        <div class="time-item">18:00</div>
-    </div>
-
-    <div class="footer">
-        <button class="btn-confirm" onclick="finishBooking()">完成預約</button>
-    </div>
+    <button class="confirm-btn" onclick="sendToLine()">確認預約 (開啟 LINE)</button>
 
     <script>
-        async function finishBooking() {
-            // 這裡抓取網址參數中的服務項目
-            const urlParams = new URLSearchParams(window.location.search);
-            const service = urlParams.get('service') || '未選擇服務';
-            
-            await liff.init({ liffId: "你的_LIFF_ID" });
-            if (liff.isLoggedIn()) {
-                await liff.sendMessages([{
-                    type: 'text',
-                    text: `預約成功！\n項目：${service}\n時間：12/28 15:00`
-                }]);
-                liff.closeWindow();
-            }
+        let selectedTime = "";
+        let selectedDate = "12/28"; // 預設
+
+        // 從網址取得服務項目
+        const urlParams = new URLSearchParams(window.location.search);
+        const service = urlParams.get('service') || "未選擇項目";
+        document.getElementById('selectedServiceDisplay').innerText = "已選項目：" + service;
+
+        // 簡單的日期產生器 (僅示範)
+        const dateBar = document.getElementById('dateBar');
+        const days = ["週日","週一","週二","週三","週四","週五","週六"];
+        for(let i=0; i<5; i++){
+            let d = new Date(); d.setDate(d.getDate() + i);
+            let div = document.createElement('div');
+            div.className = "date-item" + (i===0?" active":"");
+            div.innerHTML = `${days[d.getDay()]}<br>${d.getMonth()+1}/${d.getDate()}`;
+            div.onclick = function(){
+                document.querySelectorAll('.date-item').forEach(el=>el.classList.remove('active'));
+                this.classList.add('active');
+                selectedDate = `${d.getMonth()+1}/${d.getDate()}`;
+            };
+            dateBar.appendChild(div);
+        }
+
+        function selT(el) {
+            document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('active'));
+            el.classList.add('active');
+            selectedTime = el.innerText;
+        }
+
+        function sendToLine() {
+            if(!selectedTime) return alert("請先點選預約時段喔！");
+            const message = encodeURIComponent(`[官網預約請求]\n服務項目：${service}\n預約日期：${selectedDate}\n預約時間：${selectedTime}\n\n請幫我確認是否有空，謝謝！`);
+            // 跳轉至你的 LINE 官方帳號
+            window.location.href = `https://line.me/R/oaMessage/@468pmliu/?${message}`;
         }
     </script>
 </body>
