@@ -3,33 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>選擇服務</title>
-    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <title>選擇服務項目 - 原彤Skin</title>
     <style>
-        body { font-family: sans-serif; background: #fff5f7; margin: 0; padding: 20px; }
-        .card { background: white; border-radius: 12px; padding: 15px; margin-bottom: 10px; border: 1px solid #ffe0e6; display: flex; align-items: center; }
-        .checkbox { width: 20px; height: 20px; margin-right: 15px; accent-color: #ff4d6d; }
-        .btn-next { width: 100%; background: #ff4d6d; color: white; border: none; padding: 15px; border-radius: 30px; font-size: 16px; margin-top: 20px; }
+        :root { --primary-purple: #7a6f8a; --bg-pink: #fff5f7; }
+        body { font-family: -apple-system, "Noto Sans TC", sans-serif; background: var(--bg-pink); margin: 0; padding: 15px; padding-bottom: 80px; }
+        .header { text-align: center; padding: 20px; font-weight: bold; color: var(--primary-purple); font-size: 1.2em; }
+        .card { background: white; border-radius: 15px; padding: 15px; margin-bottom: 12px; border: 1px solid #f8d7da; display: flex; align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .checkbox { width: 22px; height: 22px; margin-right: 15px; accent-color: var(--primary-purple); cursor: pointer; }
+        .info h4 { margin: 0; color: #333; font-size: 16px; }
+        .info p { margin: 5px 0 0; font-size: 13px; color: #888; }
+        .footer { position: fixed; bottom: 0; left: 0; width: 100%; background: white; padding: 15px; box-sizing: border-box; border-top: 1px solid #eee; }
+        .btn-next { width: 100%; background: var(--primary-purple); color: white; border: none; padding: 15px; border-radius: 30px; font-size: 16px; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
-    <h3>選擇預約項目</h3>
+    <div class="header">第一步：選擇主要服務項目</div>
+    
     <div class="card">
         <input type="checkbox" class="checkbox" value="霧唇 | 唇色還原">
-        <div><strong>霧唇 | 唇色還原</strong><br><small>$8500 / 200分鐘</small></div>
+        <div class="info"><h4>霧唇 | 唇色還原</h4><p>$8500 / 200分鐘</p></div>
     </div>
     <div class="card">
         <input type="checkbox" class="checkbox" value="唇淨淡色 | 改烏唇">
-        <div><strong>唇淨淡色 | 改烏唇</strong><br><small>$3800 / 90分鐘</small></div>
+        <div class="info"><h4>唇淨淡色 | 改烏唇</h4><p>$3800 / 90分鐘</p></div>
     </div>
-    
-    <button class="btn-next" onclick="nextPage()">下一步：選擇時間</button>
+    <div class="card">
+        <input type="checkbox" class="checkbox" value="唇氧 | 導入保濕">
+        <div class="info"><h4>唇氧 | 導入保濕</h4><p>$1800 / 60分鐘</p></div>
+    </div>
+
+    <div class="card">
+        <input type="checkbox" class="checkbox" value="小氣泡深層清潔">
+        <div class="info"><h4>小氣泡深層清潔</h4><p>$1200 / 60分鐘</p></div>
+    </div>
+    <div class="card">
+        <input type="checkbox" class="checkbox" value="水氧活膚">
+        <div class="info"><h4>水氧活膚</h4><p>$1500 / 60分鐘</p></div>
+    </div>
+
+    <div class="footer">
+        <button class="btn-next" onclick="nextPage()">下一步：選擇預約時間</button>
+    </div>
 
     <script>
         function nextPage() {
             const selected = Array.from(document.querySelectorAll('.checkbox:checked')).map(el => el.value);
-            if(selected.length === 0) return alert("請選擇項目");
-            window.location.href = `booking.html?service=${encodeURIComponent(selected.join(','))}`;
+            if (selected.length === 0) return alert("請至少選擇一項服務項目喔！");
+            window.location.href = `booking.html?service=${encodeURIComponent(selected.join(' + '))}`;
         }
     </script>
 </body>
