@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>選擇預約時間</title>
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <style>
+        body { font-family: -apple-system, sans-serif; padding: 20px; background: #fff; }
+        .date-picker { display: flex; gap: 10px; overflow-x: auto; margin-bottom: 20px; }
+        .date-item { min-width: 60px; padding: 10px; border: 1px solid #eee; border-radius: 10px; text-align: center; }
+        .date-item.active { background: #ff4d6d; color: white; }
+        .time-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .time-btn { border: 1px solid #ddd; padding: 10px; text-align: center; border-radius: 8px; }
+        .time-btn.active { background: #ff4d6d; color: white; }
+        .confirm-btn { width: 100%; margin-top: 30px; background: #ff4d6d; color: white; padding: 15px; border-radius: 25px; border: none; font-size: 16px; }
+    </style>
+</head>
+<body>
+    <h3>12月, 2025</h3>
+    <div class="date-picker">
+        <div class="date-item">週四<br>25</div>
+        <div class="date-item">週五<br>26</div>
+        <div class="date-item">週六<br>27</div>
+        <div class="date-item active">週日<br>28</div>
+    </div>
+
+    <h4>開放時段</h4>
+    <div class="time-grid">
+        <div class="time-btn" onclick="selT(this)">15:00</div>
+        <div class="time-btn" onclick="selT(this)">16:00</div>
+        <div class="time-btn" onclick="selT(this)">17:00</div>
+    </div>
+    <button class="confirm-btn" onclick="send()">完成預約</button>
+
+    <script>
+        let time = "";
+        function selT(el) {
+            document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('active'));
+            el.classList.add('active');
+            time = el.innerText;
+        }
+        async function send() {
+            if(!time) return alert("請選擇時間");
+            const service = new URLSearchParams(window.location.search).get('service');
+            await liff.init({ liffId: "你的_LIFF_ID" });
+            await liff.sendMessages([{
+                type: 'text',
+                text: `[預約通知]\n項目：${service}\n時間：12/28 ${time}`
+            }]);
+            liff.closeWindow();
+        }
+    </script>
+</body>
+</html>
