@@ -1,56 +1,241 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>選擇服務項目 - 原彤Skin</title>
+    <title>選擇服務項目 | 原彤Skin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
-        :root { --primary-purple: #7a6f8a; --bg-pink: #fff5f7; }
-        body { font-family: -apple-system, "Noto Sans TC", sans-serif; background: var(--bg-pink); margin: 0; padding: 15px; padding-bottom: 80px; }
-        .header { text-align: center; padding: 20px; font-weight: bold; color: var(--primary-purple); font-size: 1.2em; }
-        .card { background: white; border-radius: 15px; padding: 15px; margin-bottom: 12px; border: 1px solid #f8d7da; display: flex; align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-        .checkbox { width: 22px; height: 22px; margin-right: 15px; accent-color: var(--primary-purple); cursor: pointer; }
-        .info h4 { margin: 0; color: #333; font-size: 16px; }
-        .info p { margin: 5px 0 0; font-size: 13px; color: #888; }
-        .footer { position: fixed; bottom: 0; left: 0; width: 100%; background: white; padding: 15px; box-sizing: border-box; border-top: 1px solid #eee; }
-        .btn-next { width: 100%; background: var(--primary-purple); color: white; border: none; padding: 15px; border-radius: 30px; font-size: 16px; font-weight: bold; cursor: pointer; }
+        :root {
+            --primary-purple: #7a6f8a; /* 您的品牌紫色 */
+            --bg-color: #fdfbfd;
+            --card-bg: #ffffff;
+            --text-color: #444;
+            --border-color: #eee;
+            --sale-red: #ff4d4f;       /* 特價紅 */
+        }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+            color: var(--text-color);
+            padding-bottom: 100px; /* 預留底部按鈕空間 */
+        }
+
+        /* --- 頁面標題區 --- */
+        .header-section {
+            text-align: center;
+            margin-bottom: 30px;
+            margin-top: 10px;
+        }
+
+        /* 自動抓取 GitHub 頭像 */
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+            border: 3px solid #f4f0f9;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .brand-name {
+            font-size: 1.5rem;
+            color: #333;
+            margin: 5px 0;
+            font-weight: bold;
+        }
+
+        .step-title {
+            font-size: 1.1rem;
+            color: var(--primary-purple);
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        /* --- 選項容器 --- */
+        .options-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* 單個選項卡片 */
+        .service-option {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            transition: all 0.2s ease;
+        }
+
+        .service-option:active {
+            transform: scale(0.98);
+            background-color: #fafafa;
+        }
+
+        /* 勾選框樣式 */
+        .service-option input[type="checkbox"] {
+            width: 24px;
+            height: 24px;
+            margin-right: 15px;
+            accent-color: var(--primary-purple);
+            cursor: pointer;
+        }
+
+        .option-content {
+            flex: 1;
+        }
+
+        .option-title {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .option-desc {
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        /* --- ★特價標籤樣式★ --- */
+        .sale-tag {
+            background-color: var(--sale-red);
+            color: white;
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-left: 8px;
+            font-weight: normal;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        /* --- 底部按鈕區 --- */
+        .bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: center;
+            box-sizing: border-box;
+            border-top: 1px solid #eee;
+            z-index: 100;
+        }
+
+        .btn-next {
+            width: 100%;
+            max-width: 600px;
+            background-color: var(--primary-purple);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(122, 111, 138, 0.4);
+        }
+
     </style>
 </head>
 <body>
-    <div class="header">第一步：選擇主要服務項目</div>
-    
-    <div class="card">
-        <input type="checkbox" class="checkbox" value="霧唇 | 唇色還原">
-        <div class="info"><h4>霧唇 | 唇色還原</h4><p>$8500 / 200分鐘</p></div>
-    </div>
-    <div class="card">
-        <input type="checkbox" class="checkbox" value="唇淨淡色 | 改烏唇">
-        <div class="info"><h4>唇淨淡色 | 改烏唇</h4><p>$3800 / 90分鐘</p></div>
-    </div>
-    <div class="card">
-        <input type="checkbox" class="checkbox" value="唇氧 | 導入保濕">
-        <div class="info"><h4>唇氧 | 導入保濕</h4><p>$1800 / 60分鐘</p></div>
+
+    <div class="header-section">
+        <img src="https://github.com/tonskin.png" class="avatar" alt="Logo">
+        <div class="brand-name">原彤Skin</div>
+        <div class="step-title">第一步：選擇主要服務項目</div>
     </div>
 
-    <div class="card">
-        <input type="checkbox" class="checkbox" value="小氣泡深層清潔">
-        <div class="info"><h4>小氣泡深層清潔</h4><p>$1200 / 60分鐘</p></div>
-    </div>
-    <div class="card">
-        <input type="checkbox" class="checkbox" value="水氧活膚">
-        <div class="info"><h4>水氧活膚</h4><p>$1500 / 60分鐘</p></div>
-    </div>
+    <form id="bookingForm" class="options-container">
+        
+        <label class="service-option">
+            <input type="checkbox" name="service" value="霧唇" data-price="7980">
+            <div class="option-content">
+                <div class="option-title">
+                    霧唇 | 唇色還原 
+                    <span class="sale-tag">特價</span>
+                </div>
+                <div class="option-desc">NT$ 7,980 / 200分鐘</div>
+            </div>
+        </label>
 
-    <div class="footer">
-        <button class="btn-next" onclick="nextPage()">下一步：選擇預約時間</button>
+        <label class="service-option">
+            <input type="checkbox" name="service" value="唇淨淡色" data-price="3490">
+            <div class="option-content">
+                <div class="option-title">
+                    唇淨淡色 | 改烏唇
+                    <span class="sale-tag">特價</span>
+                </div>
+                <div class="option-desc">NT$ 3,490 / 90分鐘</div>
+            </div>
+        </label>
+
+        <label class="service-option">
+            <input type="checkbox" name="service" value="唇氧" data-price="1800">
+            <div class="option-content">
+                <div class="option-title">唇氧 | 導入保濕</div>
+                <div class="option-desc">NT$ 1,800 / 60分鐘</div>
+            </div>
+        </label>
+
+        <label class="service-option">
+            <input type="checkbox" name="service" value="小氣泡深層清潔" data-price="1200">
+            <div class="option-content">
+                <div class="option-title">小氣泡深層清潔</div>
+                <div class="option-desc">NT$ 1,200 / 60分鐘</div>
+            </div>
+        </label>
+
+        <label class="service-option">
+            <input type="checkbox" name="service" value="水氧活膚" data-price="1500">
+            <div class="option-content">
+                <div class="option-title">水氧活膚</div>
+                <div class="option-desc">NT$ 1,500 / 60分鐘</div>
+            </div>
+        </label>
+
+    </form>
+
+    <div class="bottom-bar">
+        <button class="btn-next" onclick="goToNext()">
+            下一步：選擇預約時間
+        </button>
     </div>
 
     <script>
-        function nextPage() {
-            const selected = Array.from(document.querySelectorAll('.checkbox:checked')).map(el => el.value);
-            if (selected.length === 0) return alert("請至少選擇一項服務項目喔！");
-            window.location.href = `booking.html?service=${encodeURIComponent(selected.join(' + '))}`;
+        function goToNext() {
+            // 檢查有沒有選項目
+            const checked = document.querySelectorAll('input[name="service"]:checked');
+            
+            if (checked.length === 0) {
+                alert("請至少選擇一項服務喔！");
+            } else {
+                let services = [];
+                checked.forEach(c => services.push(c.value));
+                
+                // 這裡可以設定跳轉邏輯
+                alert("您選擇了：" + services.join(", ") + "\n\n(準備跳轉到時間選擇頁面...)");
+                
+                // 如果您有下一頁 (例如 reserve_time.html)，請將下面這行註解打開：
+                // window.location.href = 'reserve_time.html';
+            }
         }
     </script>
+
 </body>
 </html>
