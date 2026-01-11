@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>預約服務項目 | 原彤Skin</title>
+    <title>填寫預約資料 | 原彤Skin</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -12,237 +12,226 @@
             --card-bg: #ffffff;
             --text-color: #444;
             --border-color: #eee;
+            --success-green: #28a745;
         }
 
         body {
             font-family: 'Noto Sans TC', sans-serif;
             background-color: var(--bg-color);
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 20px;
             color: var(--text-color);
-            padding-bottom: 100px; /* 預留底部按鈕空間 */
+            padding-bottom: 100px;
         }
 
-        /* 標題區 */
-        .step-header {
-            text-align: center;
-            padding: 30px 20px 10px;
+        /* --- Header --- */
+        .header-section {
+            text-align: center; margin-bottom: 30px; margin-top: 10px;
+        }
+        .avatar {
+            width: 80px; height: 80px; border-radius: 50%;
+            margin-bottom: 10px; border: 3px solid #f4f0f9;
         }
         .step-title {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: var(--primary-purple);
-            margin-bottom: 5px;
+            font-size: 1.1rem; color: var(--primary-purple); font-weight: bold; margin-top: 5px;
         }
 
-        /* 選項容器 */
-        .options-container {
-            padding: 10px 20px;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* 單個選項卡片 */
-        .service-option {
+        /* --- 表單容器 --- */
+        .form-container {
+            max-width: 600px; margin: 0 auto;
             background: var(--card-bg);
+            padding: 25px; border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
             border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-            transition: all 0.2s ease;
         }
 
-        /* 點擊時的效果 */
-        .service-option:active {
-            transform: scale(0.98);
+        .form-group { margin-bottom: 20px; }
+        
+        label {
+            display: block; margin-bottom: 8px;
+            font-weight: bold; color: var(--primary-purple);
         }
 
-        /* 隱藏預設 checkbox，改用自訂樣式 */
-        .service-option input[type="checkbox"] {
-            width: 24px;
-            height: 24px;
-            margin-right: 15px;
-            accent-color: var(--primary-purple);
-            cursor: pointer;
+        input, select, textarea {
+            width: 100%; padding: 12px;
+            border: 1px solid #ddd; border-radius: 10px;
+            font-size: 16px; background: #fafafa;
+            box-sizing: border-box; /* 確保內距不撐大寬度 */
+            font-family: 'Noto Sans TC', sans-serif;
         }
 
-        /* 選項文字區塊 */
-        .option-content {
-            flex: 1;
-        }
-
-        .option-title {
-            font-size: 1rem;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 4px;
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .option-desc {
-            font-size: 0.85rem;
-            color: #888;
-        }
-
-        /* --- 特價標籤樣式 (重點) --- */
-        .sale-tag {
-            background-color: #ff4d4f; /* 亮紅色 */
-            color: white;
-            font-size: 0.75rem;
-            padding: 2px 8px;
-            border-radius: 4px;
-            margin-left: 8px;
-            font-weight: normal;
-            display: inline-block;
-        }
-
-        /* 底部按鈕區 */
-        .bottom-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
+        input:focus, select:focus {
+            outline: none; border-color: var(--primary-purple);
             background: #fff;
+        }
+
+        /* 優惠代碼訊息 */
+        #promoMessage {
+            display: none; color: var(--success-green);
+            font-size: 0.9rem; margin-top: 5px; font-weight: bold;
+        }
+
+        /* --- 底部按鈕 --- */
+        .bottom-bar {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: rgba(255, 255, 255, 0.95);
             padding: 15px 20px;
-            box-shadow: 0 -2px 15px rgba(0,0,0,0.05);
-            display: flex;
+            display: flex; gap: 10px;
             justify-content: center;
-            box-sizing: border-box;
+            box-sizing: border-box; border-top: 1px solid #eee;
             z-index: 100;
         }
 
-        /* 底部導覽按鈕 */
-        .nav-buttons {
-            display: flex;
-            gap: 15px;
-            width: 100%;
-            max-width: 600px;
-        }
-
-        .btn-next {
-            flex: 1;
-            background-color: var(--primary-purple);
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 50px;
-            font-size: 1rem;
-            font-weight: bold;
-            text-align: center;
-            text-decoration: none;
-            cursor: pointer;
+        .btn-submit {
+            flex: 2;
+            background-color: var(--primary-purple); color: white;
+            border: none; padding: 15px; border-radius: 50px;
+            font-size: 1.1rem; font-weight: bold; cursor: pointer;
             box-shadow: 0 4px 12px rgba(122, 111, 138, 0.4);
         }
-        
+
         .btn-back {
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background-color: #f0f0f0;
-            color: #666;
-            text-decoration: none;
-            font-size: 1.2rem;
+            flex: 1; max-width: 100px;
+            background-color: #f0f0f0; color: #666;
+            border: none; padding: 15px; border-radius: 50px;
+            font-size: 1rem; font-weight: bold; cursor: pointer;
+            text-decoration: none; text-align: center;
         }
 
     </style>
 </head>
 <body>
 
-    <div class="step-header">
-        <div class="step-title">第一步：選擇主要服務項目</div>
+    <div class="header-section">
+        <img src="https://github.com/tonskin.png" class="avatar" alt="Logo">
+        <div style="font-weight:bold; font-size:1.5rem;">原彤Skin</div>
+        <div class="step-title">第二步：預約資料填寫</div>
     </div>
 
-    <form id="bookingForm" class="options-container">
+    <div class="form-container">
         
-        <label class="service-option">
-            <input type="checkbox" name="service" value="霧唇" data-price="7980">
-            <div class="option-content">
-                <div class="option-title">
-                    霧唇 | 唇色還原 
-                    <span class="sale-tag">特價</span>
-                </div>
-                <div class="option-desc">NT$ 7,980 / 200分鐘</div>
-            </div>
-        </label>
+        <div class="form-group">
+            <label>您的姓名 Name</label>
+            <input type="text" id="name" placeholder="請輸入姓名" required>
+        </div>
 
-        <label class="service-option">
-            <input type="checkbox" name="service" value="唇淨淡色" data-price="3490">
-            <div class="option-content">
-                <div class="option-title">
-                    唇淨淡色 | 改烏唇
-                    <span class="sale-tag">特價</span>
-                </div>
-                <div class="option-desc">NT$ 3,490 / 90分鐘</div>
-            </div>
-        </label>
+        <div class="form-group">
+            <label>聯絡電話 Phone</label>
+            <input type="tel" id="phone" placeholder="09xx-xxx-xxx" required>
+        </div>
 
-        <label class="service-option">
-            <input type="checkbox" name="service" value="唇氧" data-price="1800">
-            <div class="option-content">
-                <div class="option-title">唇氧 | 導入保濕</div>
-                <div class="option-desc">NT$ 1,800 / 60分鐘</div>
-            </div>
-        </label>
+        <div class="form-group">
+            <label>預約日期 Date</label>
+            <input type="date" id="bookDate" required>
+            <div style="font-size:0.8rem; color:#888; margin-top:5px;">*僅開放未來 30 天內的預約</div>
+        </div>
 
-        <label class="service-option">
-            <input type="checkbox" name="service" value="小氣泡深層清潔" data-price="1200">
-            <div class="option-content">
-                <div class="option-title">小氣泡深層清潔</div>
-                <div class="option-desc">NT$ 1,200 / 60分鐘</div>
-            </div>
-        </label>
+        <div class="form-group">
+            <label>希望時段 Time</label>
+            <select id="bookTime" required>
+                </select>
+        </div>
 
-        <label class="service-option">
-            <input type="checkbox" name="service" value="水氧活膚" data-price="1500">
-            <div class="option-content">
-                <div class="option-title">水氧活膚</div>
-                <div class="option-desc">NT$ 1,500 / 60分鐘</div>
-            </div>
-        </label>
+        <div class="form-group">
+            <label>備註 / 想詢問的事項</label>
+            <textarea id="notes" rows="3" placeholder="例如：我有霧過唇、想詢問停車資訊..."></textarea>
+        </div>
 
-    </form>
+        <div class="form-group">
+            <label>優惠代碼 Promo Code</label>
+            <input type="text" id="promoCode" placeholder="輸入代碼 (例如 Yuki)">
+            <div id="promoMessage">🎉 優惠代碼有效！現場贈送精美小禮物！</div>
+        </div>
+
+    </div>
 
     <div class="bottom-bar">
-        <div class="nav-buttons">
-            <a href="index.html" class="btn-back">
-                &lt; </a>
-            
-            <button class="btn-next" onclick="goToNextStep()">
-                下一步：選擇預約時間
-            </button>
-        </div>
+        <a href="service.html" class="btn-back">上一步</a>
+        
+        <button class="btn-submit" onclick="sendEmail()">
+            確認預約 (送出)
+        </button>
     </div>
 
     <script>
-        // 簡單的腳本：按下按鈕時檢查有沒有選項目
-        function goToNextStep() {
-            // 取得所有被勾選的項目
-            const checkboxes = document.querySelectorAll('input[name="service"]:checked');
-            
-            if (checkboxes.length === 0) {
-                alert("請至少選擇一個服務項目喔！");
+        // --- 1. 日期設定 (限制今天 ~ 30天後) ---
+        const dateInput = document.getElementById('bookDate');
+        const today = new Date();
+        const maxDate = new Date();
+        maxDate.setDate(today.getDate() + 30);
+
+        function formatDate(d) {
+            return d.toISOString().split('T')[0];
+        }
+
+        dateInput.min = formatDate(today);
+        dateInput.max = formatDate(maxDate);
+
+        // --- 2. 時段生成 (10:00 - 20:00) ---
+        const timeSelect = document.getElementById('bookTime');
+        const times = ["10:00", "12:00", "14:00", "16:00", "18:00", "20:00"];
+        
+        times.forEach(t => {
+            let opt = document.createElement('option');
+            opt.value = t;
+            opt.innerText = t;
+            timeSelect.appendChild(opt);
+        });
+
+        // --- 3. 優惠代碼 Yuki 邏輯 ---
+        const promoInput = document.getElementById('promoCode');
+        const promoMsg = document.getElementById('promoMessage');
+
+        promoInput.addEventListener('input', function() {
+            if(this.value.trim().toLowerCase() === 'yuki') {
+                promoMsg.style.display = 'block';
+            } else {
+                promoMsg.style.display = 'none';
+            }
+        });
+
+        // --- 4. 送出郵件功能 ---
+        function sendEmail() {
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const date = document.getElementById('bookDate').value;
+            const time = document.getElementById('bookTime').value;
+            const notes = document.getElementById('notes').value;
+            const promo = document.getElementById('promoCode').value;
+
+            if(!name || !phone || !date) {
+                alert("請填寫完整姓名、電話與日期喔！");
                 return;
             }
 
-            let selectedServices = [];
-            checkboxes.forEach((cb) => {
-                selectedServices.push(cb.value);
-            });
+            // 判斷優惠碼
+            let promoText = "無";
+            if(promo.trim().toLowerCase() === 'yuki') {
+                promoText = "【已使用 Yuki 優惠 - 贈送小禮物🎁】";
+            }
 
-            // 這裡您可以設定要跳轉去哪裡，例如：
-            // location.href = "date_selection.html"; 
+            // 設定收件信箱
+            const emails = "a911097777@gmail.com,wenheny831@gmail.com";
             
-            // 目前先跳出提示
-            alert("您選擇了：" + selectedServices.join(", ") + "\n\n(這裡可以連結到您的日期選擇頁面)");
+            // 設定信件標題與內容
+            const subject = `【預約通知】${name} - ${date} ${time}`;
+            const body = `
+----------------------------------------
+   原彤Skin - 線上預約單
+----------------------------------------
+👤 姓名：${name}
+📞 電話：${phone}
+📅 日期：${date}
+⏰ 時段：${time}
+
+🎁 優惠代碼：${promoText}
+
+📝 備註事項：
+${notes}
+
+----------------------------------------
+`;
+            // 開啟郵件軟體
+            window.location.href = `mailto:${emails}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
         }
     </script>
 
